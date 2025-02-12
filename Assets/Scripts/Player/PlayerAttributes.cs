@@ -41,7 +41,7 @@ namespace Player
         public static event Action<int> OnHungerLevelChanged;
         #endregion
         
-        #region Game Functions
+        #region Unity Functions
         private void Awake()
         {
             SetInitialLimits();
