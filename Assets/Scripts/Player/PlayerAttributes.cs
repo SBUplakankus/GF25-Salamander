@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using World;
 
 namespace Player
 {
@@ -12,24 +13,24 @@ namespace Player
         [SerializeField] private int hungerLevel;
 
         [Header("Moist Level Params")] 
-        [SerializeField] private const int MoistReductionInterval = 1;
-        [SerializeField] private const int MoistRegenAmount = 5;
-        [SerializeField] private const int MoistReductionAmount = 5;
-        [SerializeField] private const int ZeroMoistDamage = 5;
+        [SerializeField] private int moistReductionInterval = 1;
+        [SerializeField] private int moistRegenAmount = 5;
+        [SerializeField] private int moistReductionAmount = 5;
+        [SerializeField] private int zeroMoistDamage = 5;
         
         [Header("Hunger Level Params")] 
-        [SerializeField] private const int HungerReductionInterval = 1;
-        [SerializeField] private const int HungerReductionAmount = 5;
-        [SerializeField] private const int ZeroHungerDamage = 5;
+        [SerializeField] private int hungerReductionInterval = 1;
+        [SerializeField] private int hungerReductionAmount = 5;
+        [SerializeField] private int zeroHungerDamage = 5;
         
         [Header("Health Level Params")] 
-        [SerializeField] private const int HealthRegenInterval = 1;
-        [SerializeField] private const int HealthRegenAmount = 5;
+        [SerializeField] private int healthRegenInterval = 1;
+        [SerializeField] private int healthRegenAmount = 5;
         
         private int _maxHealth;
         private int _maxMoist;
         private int _maxHunger;
-        private bool _isMoist = false;
+        private bool _isMoist;
         private bool _moistModifierReady = true;
         private bool _hungerModifierReady = true;
         private bool _healthModifierReady = true;
@@ -44,6 +45,20 @@ namespace Player
         private void Awake()
         {
             SetInitialLimits();
+        }
+
+        private void OnEnable()
+        {
+            DamageObject.OnPlayerDamage += DecreaseHealthLevel;
+            DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
+            FoodObject.OnFoodPickup += IncreaseHungerLevel;
+        }
+
+        private void OnDisable()
+        {
+            DamageObject.OnPlayerDamage -= DecreaseHealthLevel;
+            DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
+            FoodObject.OnFoodPickup -= IncreaseHungerLevel;
         }
 
         private void Update()
@@ -72,36 +87,51 @@ namespace Player
                 StartCoroutine(HealthRegenCoroutine());
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Water")) return;
+            _isMoist = true;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Water")) return;
+            _isMoist = false;
+        }
         #endregion
         
         #region Attribute Modifiers
         // Decrease Attributes
         private void DecreaseMoistLevel(int amount)
         {
+            if(moistLevel <= 0) return;
             moistLevel -= amount;
             if (moistLevel <= 0)
             {
-                // TODO: Event
+                moistLevel = 0;
             }
             OnMoistLevelChanged?.Invoke(moistLevel);
         }
         
         private void DecreaseHungerLevel(int amount)
         {
+            if (hungerLevel <= 0) return;
             hungerLevel -= amount;
             if (hungerLevel <= 0)
             {
-                // TODO: Event
+                hungerLevel = 0;
             }
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
-        
-        public void DecreaseHealthLevel(int amount)
+
+        private void DecreaseHealthLevel(int amount)
         {
+            if (healthLevel <= 0) return;
             healthLevel -= amount;
             if (healthLevel <= 0)
             {
-                // TODO: Event
+                Debug.Log("Game Over");
             }
             OnHealthLevelChanged?.Invoke(healthLevel);
         }
@@ -120,8 +150,8 @@ namespace Player
             healthLevel = temp >= _maxHealth ? _maxHealth : temp;
             OnHealthLevelChanged?.Invoke(healthLevel);
         }
-        
-        public void IncreaseHungerLevel(int amount)
+
+        private void IncreaseHungerLevel(int amount)
         {
             var temp = hungerLevel += amount;
             hungerLevel = temp >= _maxHunger ? _maxHunger : temp;
@@ -142,46 +172,46 @@ namespace Player
         {
             if (inWater)
             {
-                IncreaseMoistLevel(MoistRegenAmount);
+                IncreaseMoistLevel(moistRegenAmount);
             }
             else
             {
-                DecreaseMoistLevel(MoistReductionAmount);
+                DecreaseMoistLevel(moistReductionAmount);
             }
             
             _moistModifierReady = false;
-            yield return new WaitForSeconds(MoistReductionInterval);
+            yield return new WaitForSeconds(moistReductionInterval);
             _moistModifierReady = true;
         }
         private IEnumerator ZeroMoistDamageCoroutine()
         {
-            DecreaseHealthLevel(ZeroMoistDamage);
+            DecreaseHealthLevel(zeroMoistDamage);
             _moistModifierReady = false;
-            yield return new WaitForSeconds(MoistReductionInterval);
+            yield return new WaitForSeconds(moistReductionInterval);
             _moistModifierReady = true;
         }
         
         private IEnumerator HungerCoroutine()
         {
-            DecreaseHungerLevel(HungerReductionAmount);
+            DecreaseHungerLevel(hungerReductionAmount);
             _hungerModifierReady = false;
-            yield return new WaitForSeconds(HungerReductionInterval);
+            yield return new WaitForSeconds(hungerReductionInterval);
             _hungerModifierReady = true;
         }
         
         private IEnumerator ZeroHungerDamageCoroutine()
         {
-            DecreaseHealthLevel(ZeroHungerDamage);
+            DecreaseHealthLevel(zeroHungerDamage);
             _hungerModifierReady = false;
-            yield return new WaitForSeconds(HungerReductionInterval);
+            yield return new WaitForSeconds(hungerReductionInterval);
             _hungerModifierReady = true;
         }
         
         private IEnumerator HealthRegenCoroutine()
         {
-            IncreaseHealthLevel(HealthRegenAmount);
+            IncreaseHealthLevel(healthRegenAmount);
             _healthModifierReady = false;
-            yield return new WaitForSeconds(HealthRegenInterval);
+            yield return new WaitForSeconds(healthRegenInterval);
             _healthModifierReady = true;
         }
         #endregion
