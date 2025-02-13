@@ -6,14 +6,16 @@ using System.Collections.Generic;
 public class Movement : MonoBehaviour
 {
     //adds title on unity
-    [Header("Movement")] 
+    [Header("Movement")]
     //the players speed
-    public float moveSpeed;
-    //player orientation
-    public Transform orientation;
+    public float playerSpeed;
+    public float playerJumpForce;
+    public float playerDrag;
 
-    float horizontalInput;
-    float verticalInput;
+    public Transform playerOrientation;
+    //inputs
+    private float horizontalInput;
+    private float verticalInput;
     
     Vector3 moveDirection;
     Rigidbody rb;
@@ -21,18 +23,29 @@ public class Movement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
     }
     
     // Update is called once per frame
     void Update()
     {
         MyInput();
-    }
-
-    private void FixedUpdate()
-    {
         MovePlayer();
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
+        }
+    }
+    
+    void FixedUpdate()
+    {
+        Vector3 velocity = rb.linearVelocity;
+
+        // Apply drag only to X and Z
+        velocity.x *= playerDrag; 
+        velocity.z *= playerDrag;
+
+        rb.linearVelocity = velocity;
     }
     
     private void MyInput()
@@ -44,8 +57,9 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
         //calculates movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        
-        rb.AddForce(moveDirection * moveSpeed * moveSpeed * 10f, ForceMode.Force);
+        moveDirection = playerOrientation.forward * verticalInput + playerOrientation.right * horizontalInput;
+
+        //applies the force to the player
+        rb.AddForce(moveDirection * playerSpeed, ForceMode.Force);
     }
 }
