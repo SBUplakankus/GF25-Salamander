@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using PrimeTween;
 using Scriptable_Objects;
 using Systems;
 using TMPro;
@@ -14,20 +15,25 @@ namespace UI
         public TMP_Text details;
         public Color32[] textColours;
 
-        private const int TutorialFadeCountdown = 3;
+        private const int TutorialFadeCountdown = 2;
         private const int TutorialInterval = 1;
-
+        
+        /// <summary>
+        /// When the tutorial pop up has finished its animation and a new one is ready to be shown
+        /// </summary>
         public static event Action OnTutorialDisplayEnd; 
 
         private void OnEnable()
         {
             SetTextColour(0);
             TutorialController.OnShowNextTutorial += DisplayTutorialInfo;
+            TutorialController.OnTutorialTaskCompleted += TutorialTaskCompleted;
         }
 
         private void OnDisable()
         {
             TutorialController.OnShowNextTutorial -= DisplayTutorialInfo;
+            TutorialController.OnTutorialTaskCompleted -= TutorialTaskCompleted;
         }
 
         /// <summary>
@@ -60,6 +66,14 @@ namespace UI
             yield return new WaitForSeconds(TutorialFadeCountdown);
             
             //TODO: Fade Away Animation and next event logic
+            
+            yield return new WaitForSeconds(TutorialInterval);
+            OnTutorialDisplayEnd?.Invoke();
+        }
+
+        private void DisplayAnimation()
+        {
+            
         }
     }
 }

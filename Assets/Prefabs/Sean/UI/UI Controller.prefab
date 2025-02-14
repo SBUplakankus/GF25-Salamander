@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388944563161596125}
   - component: {fileID: 878134899962355349}
+  - component: {fileID: 8740733119345589923}
   m_Layer: 0
   m_Name: UI Controller
   m_TagString: Untagged
@@ -47,3 +48,22 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   hungerSlider: {fileID: 0}
   moistSlider: {fileID: 0}
+--- !u!114 &8740733119345589923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167594852145718405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c58f392a3475c4c94676456cc05e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: {fileID: 0}
+  details: {fileID: 0}
+  textColours:
+  - serializedVersion: 2
+    rgba: 4294967295
+  - serializedVersion: 2
+    rgba: 4281254201
