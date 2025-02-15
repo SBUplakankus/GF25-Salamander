@@ -21,7 +21,8 @@ namespace UI
         /// <summary>
         /// When the tutorial pop up has finished its animation and a new one is ready to be shown
         /// </summary>
-        public static event Action OnTutorialDisplayEnd; 
+        public static event Action OnTutorialDisplayEnd;
+        public static event Action OnHideTutorialDisplay;
 
         private void OnEnable()
         {
@@ -64,16 +65,9 @@ namespace UI
         {
             SetTextColour(1);
             yield return new WaitForSeconds(TutorialFadeCountdown);
-            
-            //TODO: Fade Away Animation and next event logic
-            
+            OnHideTutorialDisplay?.Invoke();
             yield return new WaitForSeconds(TutorialInterval);
             OnTutorialDisplayEnd?.Invoke();
-        }
-
-        private void DisplayAnimation()
-        {
-            
         }
     }
 }

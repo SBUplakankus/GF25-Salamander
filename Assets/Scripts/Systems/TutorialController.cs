@@ -12,6 +12,10 @@ namespace Systems
         [SerializeField] private List<TutorialSO> tutorials;
         private int _tutorialIndex;
         private bool _tutorialActive;
+
+        [Header("Tutorial Blockers")] 
+        [SerializeField] private GameObject tutorialExit;
+        [SerializeField] private GameObject tutorialZoneEntry;
         
         public static event Action<TutorialSO> OnShowNextTutorial;
         public static event Action OnTutorialTaskCompleted;
@@ -21,16 +25,19 @@ namespace Systems
             _tutorialIndex = 0;
             _tutorialActive = true;
             ShowNextTutorial();
+            CloseTutorialZone();
         }
 
         private void OnEnable()
         {
             TutorialDisplay.OnTutorialDisplayEnd += ShowNextTutorial;
+            TutorialExit.OnTutorialZoneExit += CloseTutorialZone;
         }
 
         private void OnDisable()
         {
             TutorialDisplay.OnTutorialDisplayEnd -= ShowNextTutorial;
+            TutorialExit.OnTutorialZoneExit -= CloseTutorialZone;
         }
 
         private void Update()
@@ -57,15 +64,37 @@ namespace Systems
 
         private void ShowNextTutorial()
         {
-            if (_tutorialIndex >= tutorials.Count - 1) return;
-            OnShowNextTutorial?.Invoke(tutorials[_tutorialIndex]);
-            
+            if (_tutorialIndex >= tutorials.Count)
+            {
+                TutorialCompleted();
+            }
+            else
+            {
+                OnShowNextTutorial?.Invoke(tutorials[_tutorialIndex]);
+            }
         }
 
         private void TutorialTaskCompleted()
         {
             OnTutorialTaskCompleted?.Invoke();
             _tutorialIndex++;
+        }
+
+        private void TutorialCompleted()
+        {
+            OpenTutorialZone();
+        }
+        
+        private void CloseTutorialZone()
+        {
+            tutorialExit.SetActive(true);
+            tutorialZoneEntry.SetActive(true);
+        }
+
+        private void OpenTutorialZone()
+        {
+            tutorialExit.SetActive(false);
+            tutorialZoneEntry.SetActive(false);
         }
         
         
