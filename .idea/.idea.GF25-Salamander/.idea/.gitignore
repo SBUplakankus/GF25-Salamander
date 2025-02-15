@@ -2,9 +2,9 @@
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.GF25-Salamander.iml
 /contentModel.xml
 /projectSettingsUpdater.xml
+/.idea.GF25-Salamander.iml
 /modules.xml
 # Editor-based HTTP Client requests
 /httpRequests/
