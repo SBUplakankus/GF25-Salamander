@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public float playerSpeed;
     public float playerJumpForce;
     public float playerDrag;
+    public float playerRotation;
 
     public Transform playerOrientation;
     //inputs
@@ -61,5 +62,7 @@ public class Movement : MonoBehaviour
 
         //applies the force to the player
         rb.AddForce(moveDirection * playerSpeed, ForceMode.Force);
+        //adding rotation on horizontalmovement (works just not added)
+        //transform.Rotate(Vector3.up * horizontalInput * playerRotation * Time.deltaTime);
     }
 }
