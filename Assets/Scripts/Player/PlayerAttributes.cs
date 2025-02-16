@@ -31,6 +31,7 @@ namespace Player
         private int _maxMoist;
         private int _maxHunger;
         private bool _isMoist;
+        private bool _takingDamage;
         private bool _moistModifierReady = true;
         private bool _hungerModifierReady = true;
         private bool _healthModifierReady = true;
@@ -80,9 +81,9 @@ namespace Player
                 StartCoroutine(hungerLevel > 0 ? HungerCoroutine() : ZeroHungerDamageCoroutine());
             }
 
-            if (healthLevel >= _maxHealth) return;
+            if (healthLevel >= _maxHealth || _takingDamage) return;
 
-            if (_healthModifierReady)
+            if (_healthModifierReady && hungerLevel > 0 && moistLevel > 0)
             {
                 StartCoroutine(HealthRegenCoroutine());
             }
@@ -90,14 +91,26 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag("Water")) return;
-            _isMoist = true;
+            if (other.gameObject.CompareTag("Water"))
+            {
+                _isMoist = true;
+            }
+            else if (other.gameObject.CompareTag("Damage"))
+            {
+                _takingDamage = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.gameObject.CompareTag("Water")) return;
-            _isMoist = false;
+            if (other.gameObject.CompareTag("Water"))
+            {
+                _isMoist = false;
+            }
+            else if (other.gameObject.CompareTag("Damage"))
+            {
+                _takingDamage = false;
+            }
         }
         #endregion
         

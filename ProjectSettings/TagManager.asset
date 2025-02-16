@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Water
+  - Damage
   layers:
   - Default
   - TransparentFX
