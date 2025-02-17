@@ -1,8 +1,10 @@
 using System;
+using Player;
 using PrimeTween;
 using Scriptable_Objects;
 using Systems;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -13,6 +15,7 @@ namespace UI
         [SerializeField] private RectTransform pausePanel;
         [SerializeField] private RectTransform controlsPanel;
         [SerializeField] private RectTransform playerPanel;
+        [SerializeField] private RectTransform gameOverPanel;
         [SerializeField] private GameObject uiBlur;
         
         [Header("Animation Params")]
@@ -20,6 +23,7 @@ namespace UI
         private const int PauseHideAmountX = -960;
         private const int ControlsHideAmountX = 900;
         private const int PlayerHideAmountX = -900;
+        private const int GameOverHideAmountY = -1000;
         private const float AnimationDuration = 0.5f;
         private const Ease AnimationEase = Ease.OutCubic;
 
@@ -29,32 +33,31 @@ namespace UI
         private void Start()
         {
             _pauseMenuOpen = false;
-            HidePausePanel();
-            HideControlsPanel();
             DisableBlur();
+            UnPauseTime();
         }
 
         private void OnEnable()
         {
             TutorialDisplay.OnHideTutorialDisplay += HideTutorialPanel;
             TutorialController.OnShowNextTutorial += ShowTutorialPanel;
+            PlayerAttributes.OnGameOver += ShowGameOverPanel;
         }
 
         private void OnDisable()
         {
             TutorialDisplay.OnHideTutorialDisplay -= HideTutorialPanel;
             TutorialController.OnShowNextTutorial -= ShowTutorialPanel;
+            PlayerAttributes.OnGameOver -= ShowGameOverPanel;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.Escape))
             {
                 HandlePauseMenuDisplay();
             }
         }
-    
-        
         
         #region Base Functions
 
@@ -74,9 +77,26 @@ namespace UI
             panel.anchoredPosition = pos;
         }
         
-        private void ShowPanel(RectTransform panel)
+        private void ShowPanel(RectTransform panel, bool useTimeScale)
         {
-            Tween.UIAnchoredPosition(panel, Vector2.zero, AnimationDuration, AnimationEase);
+            if (useTimeScale)
+            {
+                Tween.UIAnchoredPosition(panel, Vector2.zero, AnimationDuration, AnimationEase);
+            }
+            else
+            {
+                Tween.UIAnchoredPosition(panel, Vector2.zero, AnimationDuration, AnimationEase, useUnscaledTime: true);
+            }
+        }
+
+        private void PauseTime()
+        {
+            Time.timeScale = 0;
+        }
+
+        private void UnPauseTime()
+        {
+            Time.timeScale = 1;
         }
         
         #endregion
@@ -100,7 +120,7 @@ namespace UI
 
         private void ShowTutorialPanel(TutorialSO _)
         {
-            ShowPanel(tutorialPanel);
+            ShowPanel(tutorialPanel, true);
         }
 
         private void HideControlsPanel()
@@ -110,7 +130,7 @@ namespace UI
 
         private void ShowControlsPanel()
         {
-            ShowPanel(controlsPanel);
+            ShowPanel(controlsPanel, false);
         }
         
         private void HidePausePanel()
@@ -119,24 +139,32 @@ namespace UI
         }
         private void ShowPausePanel()
         {
-            ShowPanel(pausePanel);
+            ShowPanel(pausePanel, false);
         }
 
         private void ShowPlayerPanel()
         {
-            ShowPanel(playerPanel);
+            ShowPanel(playerPanel, true);
         }
 
         private void HidePlayerPanel()
         {
             HidePanel(0, playerPanel, PlayerHideAmountX);
         }
+
+        private void ShowGameOverPanel()
+        {
+            ShowPanel(gameOverPanel, false);
+            HidePlayerPanel();
+            EnableBlur();
+            PauseTime();
+        }
         
         #endregion
 
         #region Display Handlers
 
-        private void HandlePauseMenuDisplay()
+        public void HandlePauseMenuDisplay()
         {
             if (_pauseMenuOpen)
             {
@@ -144,6 +172,7 @@ namespace UI
                 HidePausePanel();
                 DisableBlur();
                 ShowPlayerPanel();
+                UnPauseTime();
             }
             else
             {
@@ -151,11 +180,26 @@ namespace UI
                 ShowPausePanel();
                 EnableBlur();
                 HidePlayerPanel();
+                PauseTime();
             }
 
             _pauseMenuOpen = !_pauseMenuOpen;
         }
         
+        #endregion
+
+        #region Button Functions
+
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(0);
+        }
+
         #endregion
     }
 }

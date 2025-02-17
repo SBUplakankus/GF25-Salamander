@@ -42,6 +42,7 @@ namespace Player
         public static event Action<int> OnMoistLevelChanged;
         public static event Action<int> OnHungerLevelChanged;
         public static event Action OnDamageTaken;
+        public static event Action OnGameOver;
         #endregion
         
         #region Unity Functions
@@ -146,7 +147,7 @@ namespace Player
             healthLevel -= amount;
             if (healthLevel <= 0)
             {
-                Debug.Log("Game Over");
+                OnGameOver?.Invoke();
             }
             OnHealthLevelChanged?.Invoke(healthLevel);
             OnDamageTaken?.Invoke();
