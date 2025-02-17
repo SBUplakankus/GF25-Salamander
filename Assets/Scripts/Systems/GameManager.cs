@@ -14,6 +14,7 @@ namespace Systems
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
             _mainGameStarted = false;
             _eventReady = false;
         }

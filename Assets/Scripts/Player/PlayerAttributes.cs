@@ -14,8 +14,9 @@ namespace Player
 
         [Header("Moist Level Params")] 
         [SerializeField] private int moistReductionInterval = 1;
-        [SerializeField] private int moistRegenAmount = 5;
         [SerializeField] private int moistReductionAmount = 5;
+        [SerializeField] private int moistRegenInterval = 1;
+        [SerializeField] private int moistRegenAmount = 5;
         [SerializeField] private int zeroMoistDamage = 5;
         
         [Header("Hunger Level Params")] 
@@ -31,6 +32,7 @@ namespace Player
         private int _maxMoist;
         private int _maxHunger;
         private bool _isMoist;
+        private bool _takingDamage;
         private bool _moistModifierReady = true;
         private bool _hungerModifierReady = true;
         private bool _healthModifierReady = true;
@@ -39,6 +41,8 @@ namespace Player
         public static event Action<int> OnHealthLevelChanged;
         public static event Action<int> OnMoistLevelChanged;
         public static event Action<int> OnHungerLevelChanged;
+        public static event Action OnDamageTaken;
+        public static event Action OnGameOver;
         #endregion
         
         #region Unity Functions
@@ -80,9 +84,9 @@ namespace Player
                 StartCoroutine(hungerLevel > 0 ? HungerCoroutine() : ZeroHungerDamageCoroutine());
             }
 
-            if (healthLevel >= _maxHealth) return;
+            if (healthLevel >= _maxHealth || _takingDamage) return;
 
-            if (_healthModifierReady)
+            if (_healthModifierReady && hungerLevel > 0 && moistLevel > 0)
             {
                 StartCoroutine(HealthRegenCoroutine());
             }
@@ -90,14 +94,26 @@ namespace Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag("Water")) return;
-            _isMoist = true;
+            if (other.gameObject.CompareTag("Water"))
+            {
+                _isMoist = true;
+            }
+            else if (other.gameObject.CompareTag("Damage"))
+            {
+                _takingDamage = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.gameObject.CompareTag("Water")) return;
-            _isMoist = false;
+            if (other.gameObject.CompareTag("Water"))
+            {
+                _isMoist = false;
+            }
+            else if (other.gameObject.CompareTag("Damage"))
+            {
+                _takingDamage = false;
+            }
         }
         #endregion
         
@@ -131,9 +147,10 @@ namespace Player
             healthLevel -= amount;
             if (healthLevel <= 0)
             {
-                Debug.Log("Game Over");
+                OnGameOver?.Invoke();
             }
             OnHealthLevelChanged?.Invoke(healthLevel);
+            OnDamageTaken?.Invoke();
         }
         
         // Increase Attributes
@@ -170,17 +187,20 @@ namespace Player
         #region Coroutines
         private IEnumerator MoistCoroutine(bool inWater)
         {
+            var waitTime = 0;
             if (inWater)
             {
                 IncreaseMoistLevel(moistRegenAmount);
+                waitTime = moistRegenInterval;
             }
             else
             {
                 DecreaseMoistLevel(moistReductionAmount);
+                waitTime = moistReductionAmount;
             }
             
             _moistModifierReady = false;
-            yield return new WaitForSeconds(moistReductionInterval);
+            yield return new WaitForSeconds(waitTime);
             _moistModifierReady = true;
         }
         private IEnumerator ZeroMoistDamageCoroutine()
