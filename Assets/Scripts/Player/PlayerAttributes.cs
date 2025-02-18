@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AI;
 using UnityEngine;
 using World;
 
@@ -56,6 +57,7 @@ namespace Player
             DamageObject.OnPlayerDamage += DecreaseHealthLevel;
             DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
             FoodObject.OnFoodPickup += IncreaseHungerLevel;
+            EnemyController.OnPlayerDamage += DecreaseHealthLevel;
         }
 
         private void OnDisable()
@@ -63,6 +65,7 @@ namespace Player
             DamageObject.OnPlayerDamage -= DecreaseHealthLevel;
             DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
             FoodObject.OnFoodPickup -= IncreaseHungerLevel;
+            EnemyController.OnPlayerDamage -= DecreaseHealthLevel;
         }
 
         private void Update()
