@@ -44,12 +44,18 @@ namespace Player
         public static event Action<int> OnHungerLevelChanged;
         public static event Action OnDamageTaken;
         public static event Action OnGameOver;
+        public static event Action<int, int, int> OnInitSliderValues; 
         #endregion
         
         #region Unity Functions
         private void Awake()
         {
             SetInitialLimits();
+        }
+
+        private void Start()
+        {
+            OnInitSliderValues?.Invoke(healthLevel, moistLevel, hungerLevel);
         }
 
         private void OnEnable()

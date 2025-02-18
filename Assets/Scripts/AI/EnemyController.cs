@@ -75,10 +75,12 @@ namespace AI
                 case EnemyState.Roaming:
                     if (playerDistance < detectionRange)
                     {
-                        Debug.Log("Seen: " + playerDistance);
                         _enemyState = EnemyState.Attacking;
                     }
-                    _navMeshAgent.SetDestination(_currentTarget.position);
+                    if (_navMeshAgent.enabled)
+                    {
+                        _navMeshAgent.SetDestination(_currentTarget.position);
+                    }
                     if (targetDistance > 1f) return;
                     UpdatePatrolTarget();
                     break;
@@ -86,7 +88,6 @@ namespace AI
                 case EnemyState.Attacking:
                     if (playerDistance >= detectionRange)
                     {
-                        Debug.Log("Escaped: " + playerDistance);
                         _enemyState = EnemyState.Roaming;
                     }
                     if (_navMeshAgent.enabled)

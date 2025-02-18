@@ -22,6 +22,7 @@ namespace UI
             PlayerAttributes.OnHealthLevelChanged += HandleHealthUpdate;
             PlayerAttributes.OnHungerLevelChanged += HandleHungerUpdate;
             PlayerAttributes.OnMoistLevelChanged += HandleMoistUpdate;
+            PlayerAttributes.OnInitSliderValues += HandleInitSliderValues;
         }
         
         private void OnDisable()
@@ -29,6 +30,17 @@ namespace UI
             PlayerAttributes.OnHealthLevelChanged -= HandleHealthUpdate;
             PlayerAttributes.OnHungerLevelChanged -= HandleHungerUpdate;
             PlayerAttributes.OnMoistLevelChanged -= HandleMoistUpdate;
+            PlayerAttributes.OnInitSliderValues -= HandleInitSliderValues;
+        }
+
+        private void HandleInitSliderValues(int healthMax, int hungerMax, int moistMax)
+        {
+            healthSlider.maxValue = healthMax;
+            hungerSlider.maxValue = hungerMax;
+            moistSlider.maxValue = moistMax;
+            healthSlider.value = healthMax;
+            moistSlider.value = moistMax;
+            hungerSlider.value = hungerMax;
         }
         private void HandleHealthUpdate(int value)
         {
