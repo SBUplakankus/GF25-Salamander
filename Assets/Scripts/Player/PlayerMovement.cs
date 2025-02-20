@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-//https://www.youtube.com/watch?v=f473C43s8nE&t 11/02/25
 public class Movement : MonoBehaviour
 {
     //adds title on unity
@@ -11,19 +10,20 @@ public class Movement : MonoBehaviour
     public float playerSpeed;
     public float playerJumpForce;
     public float playerDrag;
-    public float playerRotation;
+    public float playerDash;
+    public Transform cameraTransform; 
 
     public Transform playerOrientation;
     //inputs
-    private float horizontalInput;
-    private float verticalInput;
+    private float _horizontalInput;
+    private float _verticalInput;
     
-    Vector3 moveDirection;
-    Rigidbody rb;
+    private Vector3 _moveDirection;
+    private Rigidbody _rb;
     
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
@@ -32,37 +32,45 @@ public class Movement : MonoBehaviour
         MyInput();
         MovePlayer();
         
+        //for jumping
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
+        }
+
+        //for dashing
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
         }
     }
     
     void FixedUpdate()
     {
-        Vector3 velocity = rb.linearVelocity;
+        Vector3 velocity = _rb.linearVelocity;
 
         // Apply drag only to X and Z
         velocity.x *= playerDrag; 
         velocity.z *= playerDrag;
 
-        rb.linearVelocity = velocity;
+        _rb.linearVelocity = velocity;
+        
+        //rotating player based of camera view
+        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
     }
     
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        _horizontalInput = Input.GetAxisRaw("Horizontal");
+        _verticalInput = Input.GetAxisRaw("Vertical");
     }
 
     private void MovePlayer()
     {
         //calculates movement direction
-        moveDirection = playerOrientation.forward * verticalInput + playerOrientation.right * horizontalInput;
+        _moveDirection = playerOrientation.forward * _verticalInput + playerOrientation.right * _horizontalInput;
 
         //applies the force to the player
-        rb.AddForce(moveDirection * playerSpeed, ForceMode.Force);
-        //adding rotation on horizontalmovement (works just not added)
-        //transform.Rotate(Vector3.up * horizontalInput * playerRotation * Time.deltaTime);
+        _rb.AddForce(_moveDirection * playerSpeed, ForceMode.Force);
     }
 }
