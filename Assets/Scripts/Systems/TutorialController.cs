@@ -21,6 +21,7 @@ namespace Systems
         public static event Action<TutorialSO> OnShowNextTutorial;
         public static event Action OnTutorialTaskCompleted;
         public static event Action OnTutorialSkip;
+        public static event Action OnTutorialEnd;
 
         private void Start()
         {
@@ -108,6 +109,7 @@ namespace Systems
         {
             OpenTutorialZone();
             _tutorialActive = false;
+            OnTutorialEnd?.Invoke();
         }
         
         private void CloseTutorialZone()

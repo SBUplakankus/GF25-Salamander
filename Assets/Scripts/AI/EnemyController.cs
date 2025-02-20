@@ -41,7 +41,8 @@ namespace AI
         private bool _inToxicWaste;
         private bool _damageReady;
 
-        public static event Action<int> OnPlayerDamage; 
+        public static event Action<int> OnPlayerDamage;
+        public static event Action OnEnemyRetreat;
 
         private void Awake()
         {
@@ -65,6 +66,7 @@ namespace AI
             {
                 _enemyState = EnemyState.Retreating;
                 _currentTarget = retreatPoint;
+                OnEnemyRetreat?.Invoke();
             }
             
             var playerDistance = GetRemainingDistance(playerPosition);

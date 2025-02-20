@@ -20,6 +20,10 @@ namespace UI
         [SerializeField] private RectTransform gameOverPanel;
         [SerializeField] private GameObject uiBlur;
         
+        [Header("End Screen")]
+        [SerializeField] private RectTransform sadPanel;
+        [SerializeField] private RectTransform scorePanel;
+        
         [Header("Animation Params")]
         private const int TutorialHideAmountY = 300;
         private const int PauseHideAmountX = -960;
@@ -174,6 +178,12 @@ namespace UI
         private void HideTutorialSkipPanel()
         {
             Tween.UIAnchoredPositionX(tutorialSkipPanel, TutorialSkipHideX, AnimationDuration, AnimationEase);
+        }
+
+        public void SwapGameOverDisplay()
+        {
+            HidePanel(1, sadPanel, -1500);
+            HidePanel(1,scorePanel,0);
         }
         
         #endregion

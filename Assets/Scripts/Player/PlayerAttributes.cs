@@ -44,7 +44,8 @@ namespace Player
         public static event Action<int> OnHungerLevelChanged;
         public static event Action OnDamageTaken;
         public static event Action OnGameOver;
-        public static event Action<int, int, int> OnInitSliderValues; 
+        public static event Action<int, int, int> OnInitSliderValues;
+        public static event Action<int> OnMoistEnter;
         #endregion
         
         #region Unity Functions
@@ -201,6 +202,7 @@ namespace Player
             {
                 IncreaseMoistLevel(moistRegenAmount);
                 waitTime = moistRegenInterval;
+                OnMoistEnter?.Invoke(moistRegenAmount);
             }
             else
             {
