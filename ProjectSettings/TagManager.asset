@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Water
   - Damage
+  - Food
   layers:
   - Default
   - TransparentFX

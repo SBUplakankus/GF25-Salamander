@@ -13,10 +13,12 @@ namespace UI
         [Header("Tutorial Elements")]
         public TMP_Text header;
         public TMP_Text details;
+        public TMP_Text skip;
         public Color32[] textColours;
 
         private const int TutorialFadeCountdown = 2;
         private const int TutorialInterval = 1;
+        private const int SkippedMessageDisplay = 4;
         
         /// <summary>
         /// When the tutorial pop up has finished its animation and a new one is ready to be shown
@@ -29,12 +31,14 @@ namespace UI
             SetTextColour(0);
             TutorialController.OnShowNextTutorial += DisplayTutorialInfo;
             TutorialController.OnTutorialTaskCompleted += TutorialTaskCompleted;
+            TutorialController.OnTutorialSkip += SkipTutorial;
         }
 
         private void OnDisable()
         {
             TutorialController.OnShowNextTutorial -= DisplayTutorialInfo;
             TutorialController.OnTutorialTaskCompleted -= TutorialTaskCompleted;
+            TutorialController.OnTutorialSkip -= SkipTutorial;
         }
 
         /// <summary>
@@ -61,6 +65,12 @@ namespace UI
             details.color = textColours[index];
         }
 
+        private void SkipTutorial()
+        {
+            SkipTutorialText();
+            enabled = false;
+        }
+        
         private IEnumerator TaskCompletionCoroutine()
         {
             SetTextColour(1);
@@ -68,6 +78,12 @@ namespace UI
             OnHideTutorialDisplay?.Invoke();
             yield return new WaitForSeconds(TutorialInterval);
             OnTutorialDisplayEnd?.Invoke();
+        }
+
+        private void SkipTutorialText()
+        {
+            skip.color = textColours[1];
+            skip.text = "Tutorial Skipped";
         }
     }
 }

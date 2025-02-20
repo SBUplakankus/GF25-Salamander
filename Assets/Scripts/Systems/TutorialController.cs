@@ -12,6 +12,7 @@ namespace Systems
         [SerializeField] private List<TutorialSO> tutorials;
         private int _tutorialIndex;
         private bool _tutorialActive;
+        private bool _tutorialReady;
 
         [Header("Tutorial Blockers")] 
         [SerializeField] private GameObject tutorialExit;
@@ -19,11 +20,14 @@ namespace Systems
         
         public static event Action<TutorialSO> OnShowNextTutorial;
         public static event Action OnTutorialTaskCompleted;
+        public static event Action OnTutorialSkip;
+        public static event Action OnTutorialEnd;
 
         private void Start()
         {
             _tutorialIndex = 0;
             _tutorialActive = true;
+            _tutorialReady = false;
             ShowNextTutorial();
             CloseTutorialZone();
         }
@@ -44,17 +48,36 @@ namespace Systems
         {
             if (!_tutorialActive) return;
             
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                SkipTutorial();
+            }
+
+            if (!_tutorialReady) return;
+            
             switch (_tutorialIndex)
             {
                 case 0:
+                    if (Input.anyKeyDown)
+                    {
+                        TutorialTaskCompleted();
+                    }
+                    break;
+                case 1:
                     if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S)
                         || Input.GetKeyDown(KeyCode.D))
                     {
                         TutorialTaskCompleted();
                     }
                     break;
-                case 1:
+                case 2:
                     if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        TutorialTaskCompleted();
+                    }
+                    break;
+                case 3:
+                    if (Input.anyKeyDown)
                     {
                         TutorialTaskCompleted();
                     }
@@ -71,6 +94,7 @@ namespace Systems
             else
             {
                 OnShowNextTutorial?.Invoke(tutorials[_tutorialIndex]);
+                _tutorialReady = true;
             }
         }
 
@@ -78,11 +102,14 @@ namespace Systems
         {
             OnTutorialTaskCompleted?.Invoke();
             _tutorialIndex++;
+            _tutorialReady = false;
         }
 
         private void TutorialCompleted()
         {
             OpenTutorialZone();
+            _tutorialActive = false;
+            OnTutorialEnd?.Invoke();
         }
         
         private void CloseTutorialZone()
@@ -95,6 +122,13 @@ namespace Systems
         {
             tutorialExit.SetActive(false);
             tutorialZoneEntry.SetActive(false);
+        }
+
+        private void SkipTutorial()
+        {
+            TutorialCompleted();
+            OnTutorialSkip?.Invoke();
+            enabled = false;
         }
         
         

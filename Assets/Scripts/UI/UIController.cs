@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Player;
 using PrimeTween;
 using Scriptable_Objects;
@@ -12,11 +13,16 @@ namespace UI
     {
         [Header("UI Panels")] 
         [SerializeField] private RectTransform tutorialPanel;
+        [SerializeField] private RectTransform tutorialSkipPanel;
         [SerializeField] private RectTransform pausePanel;
         [SerializeField] private RectTransform controlsPanel;
         [SerializeField] private RectTransform playerPanel;
         [SerializeField] private RectTransform gameOverPanel;
         [SerializeField] private GameObject uiBlur;
+        
+        [Header("End Screen")]
+        [SerializeField] private RectTransform sadPanel;
+        [SerializeField] private RectTransform scorePanel;
         
         [Header("Animation Params")]
         private const int TutorialHideAmountY = 300;
@@ -24,6 +30,7 @@ namespace UI
         private const int ControlsHideAmountX = 900;
         private const int PlayerHideAmountX = -900;
         private const int GameOverHideAmountY = -1000;
+        private const int TutorialSkipHideX = -450;
         private const float AnimationDuration = 0.5f;
         private const Ease AnimationEase = Ease.OutCubic;
 
@@ -35,6 +42,7 @@ namespace UI
             _pauseMenuOpen = false;
             DisableBlur();
             UnPauseTime();
+            StartCoroutine(DisplaySkipCoroutine());
         }
 
         private void OnEnable()
@@ -42,6 +50,7 @@ namespace UI
             TutorialDisplay.OnHideTutorialDisplay += HideTutorialPanel;
             TutorialController.OnShowNextTutorial += ShowTutorialPanel;
             PlayerAttributes.OnGameOver += ShowGameOverPanel;
+            TutorialController.OnTutorialSkip += HideTutorialPanel;
         }
 
         private void OnDisable()
@@ -49,6 +58,7 @@ namespace UI
             TutorialDisplay.OnHideTutorialDisplay -= HideTutorialPanel;
             TutorialController.OnShowNextTutorial -= ShowTutorialPanel;
             PlayerAttributes.OnGameOver -= ShowGameOverPanel;
+            TutorialController.OnTutorialSkip -= HideTutorialPanel;
         }
 
         private void Update()
@@ -159,6 +169,22 @@ namespace UI
             EnableBlur();
             PauseTime();
         }
+
+        private void ShowTutorialSkipPanel()
+        {
+            ShowPanel(tutorialSkipPanel, true);
+        }
+
+        private void HideTutorialSkipPanel()
+        {
+            Tween.UIAnchoredPositionX(tutorialSkipPanel, TutorialSkipHideX, AnimationDuration, AnimationEase);
+        }
+
+        public void SwapGameOverDisplay()
+        {
+            HidePanel(1, sadPanel, -1500);
+            HidePanel(1,scorePanel,0);
+        }
         
         #endregion
 
@@ -186,6 +212,12 @@ namespace UI
             _pauseMenuOpen = !_pauseMenuOpen;
         }
         
+        private IEnumerator DisplaySkipCoroutine()
+        {
+            ShowTutorialSkipPanel();
+            yield return new WaitForSeconds(7);
+            HideTutorialSkipPanel();
+        }
         #endregion
 
         #region Button Functions

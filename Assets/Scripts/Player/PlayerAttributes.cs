@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AI;
 using UnityEngine;
 using World;
 
@@ -43,6 +44,8 @@ namespace Player
         public static event Action<int> OnHungerLevelChanged;
         public static event Action OnDamageTaken;
         public static event Action OnGameOver;
+        public static event Action<int, int, int> OnInitSliderValues;
+        public static event Action<int> OnMoistEnter;
         #endregion
         
         #region Unity Functions
@@ -51,11 +54,17 @@ namespace Player
             SetInitialLimits();
         }
 
+        private void Start()
+        {
+            OnInitSliderValues?.Invoke(healthLevel, moistLevel, hungerLevel);
+        }
+
         private void OnEnable()
         {
             DamageObject.OnPlayerDamage += DecreaseHealthLevel;
             DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
             FoodObject.OnFoodPickup += IncreaseHungerLevel;
+            EnemyController.OnPlayerDamage += DecreaseHealthLevel;
         }
 
         private void OnDisable()
@@ -63,6 +72,7 @@ namespace Player
             DamageObject.OnPlayerDamage -= DecreaseHealthLevel;
             DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
             FoodObject.OnFoodPickup -= IncreaseHungerLevel;
+            EnemyController.OnPlayerDamage -= DecreaseHealthLevel;
         }
 
         private void Update()
@@ -192,6 +202,7 @@ namespace Player
             {
                 IncreaseMoistLevel(moistRegenAmount);
                 waitTime = moistRegenInterval;
+                OnMoistEnter?.Invoke(moistRegenAmount);
             }
             else
             {
