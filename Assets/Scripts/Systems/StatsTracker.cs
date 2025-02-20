@@ -13,7 +13,8 @@ namespace Systems
         public int EnviroDamage;
         public int EnemyDamage;
         public int EnemiesDefeated;
-        public int TimeSurvived;
+        public float TimeSurvived;
+        private int TimeScore;
         public int FinalScore;
     }
     public class StatsTracker : MonoBehaviour
@@ -26,6 +27,7 @@ namespace Systems
         private int _enemyDamageTaken = 0;
         private int _enemiesDefeated = 0;
         private float _timeSurvived = 0;
+        private int _timeScore = 0;
 
         [Header("Game Checks")] 
         private bool _gameStarted = false;
@@ -94,6 +96,8 @@ namespace Systems
 
         private void HandleEndOfGame()
         {
+            Debug.Log("Bosh");
+            CalculateScore();
             var final = new FinalStats
             {
                 FoodScore = _foodScore,
@@ -101,10 +105,20 @@ namespace Systems
                 EnviroDamage = _environmentDamageTaken,
                 EnemyDamage = _enemyDamageTaken,
                 EnemiesDefeated = _enemiesDefeated,
-                TimeSurvived = (int)_timeSurvived,
+                TimeSurvived = _timeSurvived,
                 FinalScore = 2000
             };
             OnGameEnd?.Invoke(final);
+        }
+
+        private void CalculateScore()
+        {
+            _foodScore *= 10;
+            _moistScore *= 5;
+            _environmentDamageTaken *= -2;
+            _enemyDamageTaken *= -2;
+            _enemiesDefeated *= 1000;
+            _timeScore = (int)_timeSurvived * 100;
         }
     }
 }
