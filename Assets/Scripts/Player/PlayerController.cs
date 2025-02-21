@@ -21,6 +21,10 @@ public class Movement : MonoBehaviour
     private Vector3 _moveDirection;
     private Rigidbody _rb;
     
+    [Header("Attack")]
+    public GameObject spitProjectile;
+    public float projectileSpeed;
+    
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -42,6 +46,16 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
+        }
+        
+        //for attacking
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //gets player v3 and then adds the forward of the player x amount and then x amount up 
+            Vector3 spawnPosition = transform.position + (transform.forward * 0.65f) + (Vector3.up * 0.7f);
+            var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
+            spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+            //Destroy(spitClone, 10f); //data loss cant do :(
         }
     }
     
