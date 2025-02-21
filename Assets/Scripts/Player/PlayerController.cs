@@ -11,7 +11,11 @@ public class Movement : MonoBehaviour
     public float playerJumpForce;
     public float playerDrag;
     public float playerDash;
-    public Transform cameraTransform; 
+    public Transform cameraTransform;
+    
+    // Jump cooldown, doesn't need to be a const
+    private bool _canJump;
+    private const float JumpCooldown = 3f;
 
     public Transform playerOrientation;
     //inputs
@@ -21,6 +25,8 @@ public class Movement : MonoBehaviour
     private Vector3 _moveDirection;
     private Rigidbody _rb;
     
+    
+    
     [Header("Attack")]
     public GameObject spitProjectile;
     public float projectileSpeed;
@@ -28,6 +34,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _canJump = true;
     }
     
     // Update is called once per frame
@@ -36,10 +43,13 @@ public class Movement : MonoBehaviour
         MyInput();
         MovePlayer();
         
-        //for jumping
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Only jump when space is pressed and the bool is true
+        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
             _rb.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
+            
+            // To call Enumerators you need to wrap the function inside of a StartCoroutine() call
+            StartCoroutine(JumpCooldownCoroutine());
         }
 
         //for dashing
@@ -86,5 +96,14 @@ public class Movement : MonoBehaviour
 
         //applies the force to the player
         _rb.AddForce(_moveDirection * playerSpeed, ForceMode.Force);
+    }
+    
+    // Enumerators are functions that run on timers
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        // Sets can jump to false then waits for seconds based on the cooldown time
+        _canJump = false;
+        yield return new WaitForSeconds(JumpCooldown);
+        _canJump = true;
     }
 }
