@@ -14,7 +14,7 @@ namespace Systems
         public int EnemyDamage;
         public int EnemiesDefeated;
         public float TimeSurvived;
-        private int TimeScore;
+        public int TimeScore;
         public int FinalScore;
     }
     public class StatsTracker : MonoBehaviour
@@ -105,6 +105,7 @@ namespace Systems
                 EnviroDamage = _environmentDamageTaken,
                 EnemyDamage = _enemyDamageTaken,
                 EnemiesDefeated = _enemiesDefeated,
+                TimeScore = _timeScore,
                 TimeSurvived = _timeSurvived,
                 FinalScore = 2000
             };
