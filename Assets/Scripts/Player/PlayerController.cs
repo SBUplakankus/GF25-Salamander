@@ -15,7 +15,10 @@ public class Movement : MonoBehaviour
     
     // Jump cooldown, doesn't need to be a const
     private bool _canJump;
-    private const float JumpCooldown = 3f;
+    private const float JumpCooldown = 2f;
+    
+    private bool _canDash;
+    private const float DashCooldown = 2f;
 
     public Transform playerOrientation;
     //inputs
@@ -24,8 +27,6 @@ public class Movement : MonoBehaviour
     
     private Vector3 _moveDirection;
     private Rigidbody _rb;
-    
-    
     
     [Header("Attack")]
     public GameObject spitProjectile;
@@ -53,9 +54,11 @@ public class Movement : MonoBehaviour
         }
 
         //for dashing
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && _canDash)
         {
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
+            
+            StartCoroutine(DashCooldownCoroutine());
         }
         
         //for attacking
@@ -105,5 +108,12 @@ public class Movement : MonoBehaviour
         _canJump = false;
         yield return new WaitForSeconds(JumpCooldown);
         _canJump = true;
+    }
+    
+    private IEnumerator DashCooldownCoroutine()
+    {
+        _canDash = false;
+        yield return new WaitForSeconds(DashCooldown);
+        _canDash = true;
     }
 }
