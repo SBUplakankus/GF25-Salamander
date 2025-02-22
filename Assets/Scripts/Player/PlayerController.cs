@@ -54,7 +54,7 @@ public class Movement : MonoBehaviour
         }
 
         //for dashing
-        if (Input.GetKeyDown(KeyCode.F) && _canDash)
+        if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
             
@@ -69,6 +69,7 @@ public class Movement : MonoBehaviour
             var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
             spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
             //Destroy(spitClone, 10f); //data loss cant do :(
+            //need to takeaway moisture
         }
     }
     
@@ -116,4 +117,5 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(DashCooldown);
         _canDash = true;
     }
+    
 }
