@@ -36,6 +36,7 @@ public class Movement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _canJump = true;
+        _canDash = true;
     }
     
     // Update is called once per frame
