@@ -114,12 +114,14 @@ namespace Systems
         
         private void CloseTutorialZone()
         {
+            Debug.Log("Boom");
             tutorialExit.SetActive(true);
             tutorialZoneEntry.SetActive(true);
         }
 
         private void OpenTutorialZone()
         {
+            Debug.Log("Woah");
             tutorialExit.SetActive(false);
             tutorialZoneEntry.SetActive(false);
         }
