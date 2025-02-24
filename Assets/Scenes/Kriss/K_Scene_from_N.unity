@@ -171,6 +171,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lizard_no_Animation
       objectReference: {fileID: 0}
+    - target: {fileID: 2983728258791826706, guid: a6499a9f8a791a643b7c62cb8ffbdcdf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167280743394806330, guid: a6499a9f8a791a643b7c62cb8ffbdcdf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4167280743394806330, guid: a6499a9f8a791a643b7c62cb8ffbdcdf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4193559783325778228, guid: a6499a9f8a791a643b7c62cb8ffbdcdf, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
