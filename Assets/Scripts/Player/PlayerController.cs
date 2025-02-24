@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 
-public class Movement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     //adds title on unity
     [Header("Movement")]
@@ -13,12 +15,15 @@ public class Movement : MonoBehaviour
     public float playerDash;
     public Transform cameraTransform;
     
-    // Jump cooldown, doesn't need to be a const
+    // Cooldowns
     private bool _canJump;
     private const float JumpCooldown = 2f;
     
     private bool _canDash;
     private const float DashCooldown = 2f;
+
+    private bool _canSpit;
+    private const float SpitCooldown = 1f;
 
     public Transform playerOrientation;
     //inputs
@@ -31,11 +36,27 @@ public class Movement : MonoBehaviour
     [Header("Attack")]
     public GameObject spitProjectile;
     public float projectileSpeed;
+    private const int MoistureTakeAway = 10;
+    private int moistLevel;
+    
+    public static event Action<int> OnPlayerSpit;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _canJump = true;
+        _canDash = true;
+        _canSpit = true;
+    }
+
+    void onEnable()
+    {
+        PlayerAttributes.OnMoistLevelChanged += HandleMoistChange;
+    }
+
+    void onDisable()
+    {
+        PlayerAttributes.OnMoistLevelChanged -= HandleMoistChange;
     }
     
     // Update is called once per frame
@@ -62,12 +83,13 @@ public class Movement : MonoBehaviour
         }
         
         //for attacking
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && _canSpit && moistLevel >= MoistureTakeAway)
         {
             //gets player v3 and then adds the forward of the player x amount and then x amount up 
             Vector3 spawnPosition = transform.position + (transform.forward * 0.65f) + (Vector3.up * 0.7f);
             var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
             spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+            OnPlayerSpit?.Invoke(MoistureTakeAway);
             //Destroy(spitClone, 10f); //data loss cant do :(
             //need to takeaway moisture
         }
@@ -116,6 +138,11 @@ public class Movement : MonoBehaviour
         _canDash = false;
         yield return new WaitForSeconds(DashCooldown);
         _canDash = true;
+    }
+
+    private void HandleMoistChange(int currentMoistLevel)
+    {
+        moistLevel = currentMoistLevel;
     }
     
 }
