@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aafe9fdf381df774fb44c73c25a40784
+timeCreated: 1488738308
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 84745
+  packageName: Industrial Props Kit
+  packageVersion: 1.1
+  assetPath: Assets/Industrial Props/Prefabs/LightPole.prefab
+  uploadId: 180103

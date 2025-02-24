@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 28b84caef8a775346bad0707768b08d0
+timeCreated: 1488735568
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 84745
+  packageName: Industrial Props Kit
+  packageVersion: 1.1
+  assetPath: Assets/Industrial Props/Prefabs/WaterTank.prefab
+  uploadId: 180103

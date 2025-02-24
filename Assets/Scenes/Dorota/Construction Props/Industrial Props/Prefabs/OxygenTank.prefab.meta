@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d42ca8e86419e394e8ee7cebf0c338e3
+timeCreated: 1488736361
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 84745
+  packageName: Industrial Props Kit
+  packageVersion: 1.1
+  assetPath: Assets/Industrial Props/Prefabs/OxygenTank.prefab
+  uploadId: 180103
