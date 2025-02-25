@@ -68,6 +68,7 @@ namespace AI
                 _enemyState = EnemyState.Retreating;
                 _currentTarget = retreatPoint;
                 OnEnemyRetreat?.Invoke();
+                OnPlayerDetected?.Invoke(true);
             }
             
             var playerDistance = GetRemainingDistance(playerPosition);
@@ -79,6 +80,7 @@ namespace AI
                     if (playerDistance < detectionRange)
                     {
                         _enemyState = EnemyState.Attacking;
+                        OnPlayerDetected?.Invoke(false);
                     }
                     if (_navMeshAgent.enabled)
                     {
@@ -92,6 +94,7 @@ namespace AI
                     if (playerDistance >= detectionRange)
                     {
                         _enemyState = EnemyState.Roaming;
+                        OnPlayerDetected?.Invoke(true);
                     }
                     if (_navMeshAgent.enabled)
                     {
