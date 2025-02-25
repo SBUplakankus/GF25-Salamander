@@ -12,5 +12,11 @@ namespace Systems
             if (!other.gameObject.CompareTag("Player")) return;
             OnTutorialZoneExit?.Invoke();
         }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Player")) return;
+            OnTutorialZoneExit?.Invoke();
+        }
     }
 }

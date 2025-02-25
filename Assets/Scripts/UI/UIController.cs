@@ -23,13 +23,16 @@ namespace UI
         [Header("End Screen")]
         [SerializeField] private RectTransform sadPanel;
         [SerializeField] private RectTransform scorePanel;
+
+        [Header("Canvas Groups")] 
+        [SerializeField] private CanvasGroup tutorialGroup;
         
         [Header("Animation Params")]
         private const int TutorialHideAmountY = 300;
         private const int PauseHideAmountX = -960;
-        private const int ControlsHideAmountX = 900;
+        private const int ControlsHideAmountX = 1100;
         private const int PlayerHideAmountX = -900;
-        private const int GameOverHideAmountY = -1000;
+        private const int GameOverHideAmountY = -1100;
         private const int TutorialSkipHideX = -450;
         private const float AnimationDuration = 0.5f;
         private const Ease AnimationEase = Ease.OutCubic;
@@ -165,6 +168,8 @@ namespace UI
         private void ShowGameOverPanel()
         {
             ShowPanel(gameOverPanel, false);
+            tutorialPanel.gameObject.SetActive(false);
+            tutorialSkipPanel.gameObject.SetActive(false);
             HidePlayerPanel();
             EnableBlur();
             PauseTime();
@@ -192,8 +197,10 @@ namespace UI
 
         public void HandlePauseMenuDisplay()
         {
+            Tween.StopAll();
             if (_pauseMenuOpen)
             {
+                HandleTutorialOpacity(true);
                 HideControlsPanel();
                 HidePausePanel();
                 DisableBlur();
@@ -202,6 +209,7 @@ namespace UI
             }
             else
             {
+                HandleTutorialOpacity(false);
                 ShowControlsPanel();
                 ShowPausePanel();
                 EnableBlur();
@@ -210,6 +218,11 @@ namespace UI
             }
 
             _pauseMenuOpen = !_pauseMenuOpen;
+        }
+
+        private void HandleTutorialOpacity(bool show)
+        {
+            tutorialGroup.alpha = show ? 1 : 0;
         }
         
         private IEnumerator DisplaySkipCoroutine()
