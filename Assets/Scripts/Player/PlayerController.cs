@@ -47,9 +47,10 @@ public class PlayerController : MonoBehaviour
         _canJump = true;
         _canDash = true;
         _canSpit = true;
+        moistLevel = 0;
     }
 
-    void onEnable()
+    /*void onEnable()
     {
         PlayerAttributes.OnMoistLevelChanged += HandleMoistChange;
     }
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void onDisable()
     {
         PlayerAttributes.OnMoistLevelChanged -= HandleMoistChange;
-    }
+    }*/
     
     // Update is called once per frame
     void Update()
@@ -83,15 +84,15 @@ public class PlayerController : MonoBehaviour
         }
         
         //for attacking
-        if (Input.GetKeyDown(KeyCode.E) && _canSpit && moistLevel >= MoistureTakeAway)
+        if (Input.GetKeyDown(KeyCode.E) && _canSpit /*&& moistLevel >= MoistureTakeAway*/)
         {
+            print("spit");
             //gets player v3 and then adds the forward of the player x amount and then x amount up 
-            Vector3 spawnPosition = transform.position + (transform.forward * 0.65f) + (Vector3.up * 0.7f);
+            Vector3 spawnPosition = transform.position + (transform.forward * 0.5f) + (Vector3.up * 0.8f);
             var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
             spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
-            OnPlayerSpit?.Invoke(MoistureTakeAway);
+            //OnPlayerSpit?.Invoke(MoistureTakeAway);
             //Destroy(spitClone, 10f); //data loss cant do :(
-            //need to takeaway moisture
         }
     }
     
@@ -140,9 +141,9 @@ public class PlayerController : MonoBehaviour
         _canDash = true;
     }
 
-    private void HandleMoistChange(int currentMoistLevel)
+    /*private void HandleMoistChange(int currentMoistLevel)
     {
         moistLevel = currentMoistLevel;
-    }
+    }*/
     
 }
