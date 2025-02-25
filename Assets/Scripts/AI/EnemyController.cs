@@ -43,6 +43,7 @@ namespace AI
 
         public static event Action<int> OnPlayerDamage;
         public static event Action OnEnemyRetreat;
+        public static event Action<bool> OnPlayerDetected; 
 
         private void Awake()
         {
