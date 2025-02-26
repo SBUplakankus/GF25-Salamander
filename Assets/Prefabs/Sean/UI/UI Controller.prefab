@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6124601625398395575}
   - component: {fileID: 878134899962355349}
   - component: {fileID: 8740733119345589923}
+  - component: {fileID: 1983374616199142916}
+  - component: {fileID: 7020204593022949598}
   m_Layer: 0
   m_Name: UI Controller
   m_TagString: Untagged
@@ -48,11 +50,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialPanel: {fileID: 0}
+  tutorialSkipPanel: {fileID: 0}
   pausePanel: {fileID: 0}
   controlsPanel: {fileID: 0}
   playerPanel: {fileID: 0}
   gameOverPanel: {fileID: 0}
   uiBlur: {fileID: 8650181777748984262}
+  sadPanel: {fileID: 0}
+  scorePanel: {fileID: 0}
+  tutorialGroup: {fileID: 0}
 --- !u!114 &878134899962355349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,11 +88,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   header: {fileID: 0}
   details: {fileID: 0}
+  skip: {fileID: 0}
   textColours:
   - serializedVersion: 2
     rgba: 4294967295
   - serializedVersion: 2
     rgba: 4281254201
+--- !u!114 &1983374616199142916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167594852145718405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b1b965b40945847a54257671b950fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreBoxes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  foodText: {fileID: 0}
+  moistText: {fileID: 0}
+  evtText: {fileID: 0}
+  edText: {fileID: 0}
+  ekText: {fileID: 0}
+  timeText: {fileID: 0}
+  finalScoreText: {fileID: 0}
+--- !u!114 &7020204593022949598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167594852145718405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47ed1056a10c29478ec9e3d0dabd117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSprite: {fileID: 0}
+  happy: {fileID: 21300000, guid: 16162ea5bf4a67e43b557f4590e90a85, type: 3}
+  thirsty: {fileID: 21300000, guid: 218f770c9f40a2243909d3fd9d902812, type: 3}
+  parched: {fileID: 21300000, guid: 2fc0e8fe9a7f3d7418eac9a2053cd969, type: 3}
 --- !u!1 &8650181777748984262
 GameObject:
   m_ObjectHideFlags: 0
