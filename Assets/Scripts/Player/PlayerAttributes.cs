@@ -65,7 +65,7 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
             FoodObject.OnFoodPickup += IncreaseHungerLevel;
             EnemyController.OnPlayerDamage += DecreaseHealthLevel;
-            PlayerController.OnPlayerSpit += DecreaseMoistLevel;
+            //PlayerController.OnPlayerSpit += DecreaseMoistLevel;
         }
 
         private void OnDisable()
@@ -74,7 +74,7 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
             FoodObject.OnFoodPickup -= IncreaseHungerLevel;
             EnemyController.OnPlayerDamage -= DecreaseHealthLevel;
-            PlayerController.OnPlayerSpit -= DecreaseMoistLevel;
+            //PlayerController.OnPlayerSpit -= DecreaseMoistLevel;
         }
 
         private void Update()
