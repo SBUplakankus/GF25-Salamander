@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PrimeTween;
 using Scriptable_Objects;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 namespace AI
@@ -29,6 +31,12 @@ namespace AI
         private int _attackDamage;
         private float _attackInterval;
         private bool _attackReady;
+
+        [Header("Health Bar")] 
+        [SerializeField] private Slider hp;
+        private const float AnimationDuration = 0.4f;
+        private const Ease AnimationEase = Ease.OutCubic;
+        private bool _hpViewable;
         
         
         private NavMeshAgent _navMeshAgent;
@@ -43,6 +51,7 @@ namespace AI
 
         public static event Action<int> OnPlayerDamage;
         public static event Action OnEnemyRetreat;
+        public static event Action<bool> OnPlayerDetected; 
 
         private void Awake()
         {
@@ -67,6 +76,7 @@ namespace AI
                 _enemyState = EnemyState.Retreating;
                 _currentTarget = retreatPoint;
                 OnEnemyRetreat?.Invoke();
+                OnPlayerDetected?.Invoke(true);
             }
             
             var playerDistance = GetRemainingDistance(playerPosition);
@@ -78,6 +88,7 @@ namespace AI
                     if (playerDistance < detectionRange)
                     {
                         _enemyState = EnemyState.Attacking;
+                        OnPlayerDetected?.Invoke(false);
                     }
                     if (_navMeshAgent.enabled)
                     {
@@ -91,6 +102,7 @@ namespace AI
                     if (playerDistance >= detectionRange)
                     {
                         _enemyState = EnemyState.Roaming;
+                        OnPlayerDetected?.Invoke(true);
                     }
                     if (_navMeshAgent.enabled)
                     {
@@ -150,6 +162,9 @@ namespace AI
             _navMeshAgent.speed = enemyStats.enemySpeed;
             _currentTarget = patrolPositions[0];
             _inToxicWaste = false;
+            hp.maxValue = _maxHealth;
+            hp.value = _currentHealth;
+            HideHealthBar();
         }
 
         private void UpdatePatrolTarget()
@@ -199,9 +214,36 @@ namespace AI
         private IEnumerator ToxicDamageCoroutine()
         {
             _damageReady = false;
-            _currentHealth -= ToxicDamageAmount;
+            TakeDamage(ToxicDamageAmount);
             yield return new WaitForSeconds(ToxicDamageInterval);
             _damageReady = true;
+        }
+
+        private void TakeDamage(int amount)
+        {
+            _currentHealth -= amount;
+            if (_currentHealth < 0)
+            {
+                _currentHealth = 0;
+            }
+
+            if (!_hpViewable)
+            {
+                ShowHealthBar();
+            }
+            
+            Tween.UISliderValue(hp, _currentHealth, AnimationDuration, AnimationEase);
+        }
+
+        private void ShowHealthBar()
+        {
+            Tween.Scale(hp.transform, 1, AnimationDuration, AnimationEase);
+        }
+
+        private void HideHealthBar()
+        {
+            _hpViewable = false;
+            hp.transform.localScale = Vector3.zero;
         }
     }
 }
