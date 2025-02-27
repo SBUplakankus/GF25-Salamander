@@ -10,14 +10,9 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     //the players speed
     public float playerSpeed;
-    public float playerJumpForce;
     public float playerDrag;
     public float playerDash;
     public Transform cameraTransform;
-    
-    // Cooldowns
-    private bool _canJump;
-    private const float JumpCooldown = 2f;
     
     private bool _canDash;
     private const float DashCooldown = 2f;
@@ -37,17 +32,21 @@ public class PlayerController : MonoBehaviour
     public GameObject spitProjectile;
     public float projectileSpeed;
     private const int MoistureTakeAway = 10;
-    private int moistLevel;
+    //private int moistLevel;
     
-    public static event Action<int> OnPlayerSpit;
+    //animation
+    private Animator _animator;
+    
+    //public static event Action<int> OnPlayerSpit;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _canJump = true;
+        _animator = GetComponentInChildren<Animator>();
+        _animator.SetFloat("speed", 0);
         _canDash = true;
         _canSpit = true;
-        moistLevel = 0;
+        //moistLevel = 0;
     }
 
     /*void onEnable()
@@ -66,15 +65,6 @@ public class PlayerController : MonoBehaviour
         MyInput();
         MovePlayer();
         
-        // Only jump when space is pressed and the bool is true
-        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
-        {
-            _rb.AddForce(Vector3.up * playerJumpForce, ForceMode.Impulse);
-            
-            // To call Enumerators you need to wrap the function inside of a StartCoroutine() call
-            StartCoroutine(JumpCooldownCoroutine());
-        }
-
         //for dashing
         if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
@@ -86,13 +76,9 @@ public class PlayerController : MonoBehaviour
         //for attacking
         if (Input.GetKeyDown(KeyCode.E) && _canSpit /*&& moistLevel >= MoistureTakeAway*/)
         {
-            print("spit");
-            //gets player v3 and then adds the forward of the player x amount and then x amount up 
-            Vector3 spawnPosition = transform.position + (transform.forward * 0.5f) + (Vector3.up * 0.8f);
-            var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
-            spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+            ShootSpit();
+            StartCoroutine(SpitCooldownCoroutine());
             //OnPlayerSpit?.Invoke(MoistureTakeAway);
-            //Destroy(spitClone, 10f); //data loss cant do :(
         }
     }
     
@@ -120,25 +106,53 @@ public class PlayerController : MonoBehaviour
     {
         //calculates movement direction
         _moveDirection = playerOrientation.forward * _verticalInput + playerOrientation.right * _horizontalInput;
-
+        Animate();
         //applies the force to the player
         _rb.AddForce(_moveDirection * playerSpeed, ForceMode.Force);
     }
+
+    private void ShootSpit()
+    {
+        //gets player v3 and then adds the forward of the player x amount and then x amount up 
+        Vector3 spawnPosition = transform.position + (transform.forward * 2f) ;
+        var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
+        spitClone.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 0.2f) * projectileSpeed, ForceMode.Impulse);
+    }
+
+    private void Animate()
+    {
+        //_animator.SetFloat("speed", 0.5f);
+        if (_canDash)
+        {
+            if (_horizontalInput == 0 && _verticalInput == 0)
+            {
+                _animator.SetFloat("speed", 0);
+            }
+            else
+            {
+                _animator.SetFloat("speed", 0.5f);
+            }
+        }
+        else
+        {
+            _animator.SetFloat("speed", 1);
+        }
+    }
     
     // Enumerators are functions that run on timers
-    private IEnumerator JumpCooldownCoroutine()
-    {
-        // Sets can jump to false then waits for seconds based on the cooldown time
-        _canJump = false;
-        yield return new WaitForSeconds(JumpCooldown);
-        _canJump = true;
-    }
     
     private IEnumerator DashCooldownCoroutine()
     {
         _canDash = false;
         yield return new WaitForSeconds(DashCooldown);
         _canDash = true;
+    }
+    
+    private IEnumerator SpitCooldownCoroutine()
+    {
+        _canSpit = false;
+        yield return new WaitForSeconds(SpitCooldown);
+        _canSpit = true;
     }
 
     /*private void HandleMoistChange(int currentMoistLevel)
