@@ -16,9 +16,8 @@ namespace UI
         public TMP_Text skip;
         public Color32[] textColours;
 
-        private const int TutorialFadeCountdown = 2;
-        private const int TutorialInterval = 1;
-        private const int SkippedMessageDisplay = 4;
+        private const float TutorialFadeCountdown = 2.5f;
+        private const float TutorialInterval = 1f;
         
         /// <summary>
         /// When the tutorial pop up has finished its animation and a new one is ready to be shown

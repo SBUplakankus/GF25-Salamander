@@ -8,29 +8,54 @@ namespace World
     {
         [SerializeField] private AudioSource treeAudioSource;
         [SerializeField] private GameObject tree;
-        private bool _cutDown;
+        [SerializeField] private GameObject fallBlocker;
+        private bool _playerInside;
+        private bool _readyToBeCut;
+        private bool _treeCutDown;
 
-        private readonly Quaternion _treeRotation = Quaternion.Euler(-80f, 0f, 0f);
+        private Vector3 _treeRotation;
         private const int AnimationDuration = 5;
         private const Ease AnimationType = Ease.InExpo;
 
         private void Start()
         {
-            _cutDown = false;
+            fallBlocker.SetActive(false);
+            _playerInside = false;
+            _treeCutDown = false;
+            _readyToBeCut = false;
+            _treeRotation = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 100);
+        }
+
+        private void Update()
+        {
+            if (_playerInside || _treeCutDown || !_readyToBeCut) return;
+            CutDownTree();
+            
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if(_cutDown) return;
             if (!other.gameObject.CompareTag("Player")) return;
-            CutDownTree();
+            _playerInside = true;
+        }
+        
+        private void OnTriggerExit(Collider other)
+        {
+            if (!other.gameObject.CompareTag("Player")) return;
+            _playerInside = false;
         }
 
+        public void SetTreeToFall()
+        {
+            _readyToBeCut = true;
+        }
+        
         private void CutDownTree()
         {
+            fallBlocker.SetActive(true);
             Tween.Rotation(tree.transform, _treeRotation, AnimationDuration, AnimationType);
-            _cutDown = true;
             treeAudioSource.Play();
+            _treeCutDown = true;
         }
     }
 }

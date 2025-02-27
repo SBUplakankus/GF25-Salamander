@@ -13,7 +13,7 @@ namespace Player
         [SerializeField] private RectTransform dry;
 
         [Header("Animation")] 
-        private const float AnimationDuration = 2f;
+        private const float AnimationDuration = 1.5f;
         private const Ease AnimationEase = Ease.OutBounce;
 
         [Header("Checks")] 
