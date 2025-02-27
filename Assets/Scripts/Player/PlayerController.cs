@@ -71,7 +71,6 @@ public class PlayerController : MonoBehaviour
         //for attacking
         if (Input.GetKeyDown(KeyCode.E) && _canSpit /*&& moistLevel >= MoistureTakeAway*/)
         {
-            _canDash = false;
             ShootSpit();
             StartCoroutine(SpitCooldownCoroutine());
             //OnPlayerSpit?.Invoke(MoistureTakeAway);
@@ -110,9 +109,9 @@ public class PlayerController : MonoBehaviour
     private void ShootSpit()
     {
         //gets player v3 and then adds the forward of the player x amount and then x amount up 
-        Vector3 spawnPosition = transform.position + (transform.forward * 0.5f) + (Vector3.up * 0.8f);
+        Vector3 spawnPosition = transform.position + (transform.forward * 2f) ;
         var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
-        spitClone.GetComponent<Rigidbody>().AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+        spitClone.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 0.2f) * projectileSpeed, ForceMode.Impulse);
     }
     
     // Enumerators are functions that run on timers

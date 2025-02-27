@@ -12,11 +12,11 @@ public class CameraPanning : MonoBehaviour
         Invoke("PanCamera", 10f);
     }
 
-    void PanCamera()
+    private void PanCamera()
     {
         Tween.PositionZ(camera.transform, 2, 15f);
         Tween.Custom(30, 60, duration: 15f, onValueChange: newVal  => Camera.main.fieldOfView = newVal);
         //Tween.Delay(duration: 16f, () => Tween.Custom(60, 20, duration: 4f, onValueChange: newVal => Camera.main.fieldOfView = newVal));
-        Invoke("TestReset", 25f);
+        //Invoke("TestReset", 25f);
     }
 }

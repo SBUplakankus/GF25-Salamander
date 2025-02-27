@@ -464,13 +464,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 30
-  playerJumpForce: 8
   playerDrag: 0.8
   playerDash: 50
   cameraTransform: {fileID: 3189392742456034356}
   playerOrientation: {fileID: 7538350926067585828}
   spitProjectile: {fileID: 6912476838334368052, guid: d4e8c27315009d74fb6c388870d37a3c, type: 3}
-  projectileSpeed: 25
+  projectileSpeed: 15
 --- !u!136 &3957094152778406396
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -549,7 +548,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776883832890315063}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04437551, y: -0.072677836, z: -0.0032368898, w: 0.99636257}
+  m_LocalRotation: {x: -0.044375524, y: -0.07267791, z: -0.003236894, w: 0.99636257}
   m_LocalPosition: {x: 0.41999435, y: 0.5811212, z: -1.5006075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
