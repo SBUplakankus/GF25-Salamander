@@ -151,4 +151,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finalSize: 6
   durationToGrow: 0.5
-  durationToDissappear: 3
+  durationToDisappear: 3

@@ -548,8 +548,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776883832890315063}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.044375524, y: -0.07267791, z: -0.003236894, w: 0.99636257}
-  m_LocalPosition: {x: 0.41999435, y: 0.5811212, z: -1.5006075}
+  m_LocalRotation: {x: -0.04435875, y: -0.07145948, z: -0.0031811409, w: 0.9964516}
+  m_LocalPosition: {x: -8.528585, y: -1.5020671, z: 5.7265897}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -793,6 +793,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7538350926067585828}
     m_Modifications:
+    - target: {fileID: -8835255244675529658, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -12.223761
+      objectReference: {fileID: 0}
+    - target: {fileID: -8835255244675529658, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.99893403
+      objectReference: {fileID: 0}
+    - target: {fileID: -8835255244675529658, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 6.040189
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d6e095eff15fa9d499249265866836e6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.010705858
@@ -845,21 +857,103 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4404652359347765746, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.0036351965
+      objectReference: {fileID: 0}
+    - target: {fileID: -4404652359347765746, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.0535865
+      objectReference: {fileID: 0}
+    - target: {fileID: -4404652359347765746, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.003634971
+      objectReference: {fileID: 0}
+    - target: {fileID: -4358016017612156693, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -18.654337
+      objectReference: {fileID: 0}
+    - target: {fileID: -4358016017612156693, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -3.4382668
+      objectReference: {fileID: 0}
+    - target: {fileID: -4358016017612156693, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 9.0643425
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d6e095eff15fa9d499249265866836e6, type: 3}
       propertyPath: m_Name
-      value: Lizard_animation
+      value: SalamanderModel
       objectReference: {fileID: 0}
     - target: {fileID: 4193559783325778228, guid: d6e095eff15fa9d499249265866836e6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: fd8b39d222f4d654a93a73f730f04845, type: 2}
+    - target: {fileID: 5192162660316866307, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -1.0912162
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195438546426808428, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 40.10515
+      objectReference: {fileID: 0}
+    - target: {fileID: 6195438546426808428, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754271287387015619, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -5.830099
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023907865224334918, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 4.7440575e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023907865224334918, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -151.04297
+      objectReference: {fileID: 0}
+    - target: {fileID: 9023907865224334918, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 6.316729e-15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8166266294090629750}
   m_SourcePrefab: {fileID: 100100000, guid: d6e095eff15fa9d499249265866836e6, type: 3}
 --- !u!4 &1183093363670353632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d6e095eff15fa9d499249265866836e6, type: 3}
   m_PrefabInstance: {fileID: 1720806444758786315}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1954810220144352346 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d6e095eff15fa9d499249265866836e6, type: 3}
+  m_PrefabInstance: {fileID: 1720806444758786315}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8166266294090629750
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954810220144352346}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0e7df5993ded934bac1cf5a17cefaf2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

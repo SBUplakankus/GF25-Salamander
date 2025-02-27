@@ -34,11 +34,16 @@ public class PlayerController : MonoBehaviour
     private const int MoistureTakeAway = 10;
     //private int moistLevel;
     
+    //animation
+    private Animator _animator;
+    
     //public static event Action<int> OnPlayerSpit;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
+        _animator.SetFloat("speed", 0);
         _canDash = true;
         _canSpit = true;
         //moistLevel = 0;
@@ -101,7 +106,7 @@ public class PlayerController : MonoBehaviour
     {
         //calculates movement direction
         _moveDirection = playerOrientation.forward * _verticalInput + playerOrientation.right * _horizontalInput;
-
+        Animate();
         //applies the force to the player
         _rb.AddForce(_moveDirection * playerSpeed, ForceMode.Force);
     }
@@ -112,6 +117,26 @@ public class PlayerController : MonoBehaviour
         Vector3 spawnPosition = transform.position + (transform.forward * 2f) ;
         var spitClone = Instantiate(spitProjectile, spawnPosition, Quaternion.identity);
         spitClone.GetComponent<Rigidbody>().AddForce((transform.forward + Vector3.up * 0.2f) * projectileSpeed, ForceMode.Impulse);
+    }
+
+    private void Animate()
+    {
+        //_animator.SetFloat("speed", 0.5f);
+        if (_canDash)
+        {
+            if (_horizontalInput == 0 && _verticalInput == 0)
+            {
+                _animator.SetFloat("speed", 0);
+            }
+            else
+            {
+                _animator.SetFloat("speed", 0.5f);
+            }
+        }
+        else
+        {
+            _animator.SetFloat("speed", 1);
+        }
     }
     
     // Enumerators are functions that run on timers
