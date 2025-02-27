@@ -42,7 +42,7 @@ namespace AI
         private NavMeshAgent _navMeshAgent;
         private Rigidbody _rb;
         private EnemyState _enemyState;
-        private const int DisabledDuration = 2;
+        private const int DisabledDuration = 3;
         private const int SlowDownDuration = 3;
         private const int ToxicDamageAmount = 10;
         private const int ToxicDamageInterval = 2;
@@ -75,6 +75,7 @@ namespace AI
             {
                 _enemyState = EnemyState.Retreating;
                 _currentTarget = retreatPoint;
+                HideHealthBar();
                 OnEnemyRetreat?.Invoke();
                 OnPlayerDetected?.Invoke(true);
             }
@@ -94,7 +95,7 @@ namespace AI
                     {
                         _navMeshAgent.SetDestination(_currentTarget.position);
                     }
-                    if (targetDistance > 1f) return;
+                    if (targetDistance > 5f) return;
                     UpdatePatrolTarget();
                     break;
                 
@@ -114,8 +115,12 @@ namespace AI
                     break;
                 
                 case EnemyState.Retreating:
-                    _navMeshAgent.SetDestination(_currentTarget.position);
-                    if (targetDistance < 1f)
+                    if (_navMeshAgent.enabled)
+                    {
+                        _navMeshAgent.speed *= 1.5f;
+                        _navMeshAgent.SetDestination(_currentTarget.position);
+                    }
+                    if (targetDistance < 5f)
                     {
                         gameObject.SetActive(false);
                     }
@@ -219,7 +224,7 @@ namespace AI
             _damageReady = true;
         }
 
-        private void TakeDamage(int amount)
+        public void TakeDamage(int amount)
         {
             _currentHealth -= amount;
             if (_currentHealth < 0)

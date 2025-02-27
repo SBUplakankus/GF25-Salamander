@@ -6,36 +6,26 @@ namespace Systems
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("Event Params")]
-        [SerializeField] private int eventInterval = 30;
+        [Header("Game Params")]
+        private const int GameLength = 150;
+        private float _gameTime;
+
+        public static event Action OnTimerExpiration;
         
-        private bool _mainGameStarted;
-        private bool _eventReady;
 
         private void Start()
         {
             Application.targetFrameRate = 60;
-            _mainGameStarted = false;
-            _eventReady = false;
+            _gameTime = 0;
         }
 
         private void Update()
         {
-            if (!_mainGameStarted || !_eventReady) return;
-            StartCoroutine(EventCoroutine());
-        }
-
-        private void HandleGameStart()
-        {
-            _mainGameStarted = true;
-        }
-
-        private IEnumerator EventCoroutine()
-        {
-            _eventReady = false;
-            // TODO: Event Logic - Switch Statement with an Index maybe that triggers garbage, spills, trees, pollution etc...
-            yield return new WaitForSeconds(eventInterval);
-            _eventReady = true;
+            _gameTime += Time.deltaTime;
+            if (_gameTime >= GameLength)
+            {
+                OnTimerExpiration?.Invoke();
+            }
         }
     }
 }

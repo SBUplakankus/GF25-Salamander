@@ -200,7 +200,7 @@ namespace Player
         private IEnumerator MoistCoroutine(bool inWater)
         {
             var waitTime = 0;
-            if (inWater)
+            if (inWater && moistLevel < 100)
             {
                 IncreaseMoistLevel(moistRegenAmount);
                 waitTime = moistRegenInterval;

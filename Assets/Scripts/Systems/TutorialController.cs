@@ -29,19 +29,16 @@ namespace Systems
             _tutorialActive = true;
             _tutorialReady = false;
             ShowNextTutorial();
-            CloseTutorialZone();
         }
 
         private void OnEnable()
         {
             TutorialDisplay.OnTutorialDisplayEnd += ShowNextTutorial;
-            TutorialExit.OnTutorialZoneExit += CloseTutorialZone;
         }
 
         private void OnDisable()
         {
             TutorialDisplay.OnTutorialDisplayEnd -= ShowNextTutorial;
-            TutorialExit.OnTutorialZoneExit -= CloseTutorialZone;
         }
 
         private void Update()
@@ -58,6 +55,9 @@ namespace Systems
             switch (_tutorialIndex)
             {
                 case 0:
+                    case 4:
+                        case 5:
+                            case 6:
                     if (Input.anyKeyDown)
                     {
                         TutorialTaskCompleted();
@@ -71,17 +71,18 @@ namespace Systems
                     }
                     break;
                 case 2:
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    if (Input.GetKeyDown(KeyCode.Q))
                     {
                         TutorialTaskCompleted();
                     }
                     break;
                 case 3:
-                    if (Input.anyKeyDown)
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
                         TutorialTaskCompleted();
                     }
                     break;
+                    
             }
         }
 
@@ -107,7 +108,6 @@ namespace Systems
 
         private void TutorialCompleted()
         {
-            OpenTutorialZone();
             _tutorialActive = false;
             OnTutorialEnd?.Invoke();
         }
