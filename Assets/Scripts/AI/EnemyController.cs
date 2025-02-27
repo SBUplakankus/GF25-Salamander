@@ -219,7 +219,7 @@ namespace AI
             _damageReady = true;
         }
 
-        private void TakeDamage(int amount)
+        public void TakeDamage(int amount)
         {
             _currentHealth -= amount;
             if (_currentHealth < 0)

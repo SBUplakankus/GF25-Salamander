@@ -1,3 +1,5 @@
+using System;
+using AI;
 using PrimeTween;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ public class SpitController : MonoBehaviour
     [SerializeField] private float finalSize;
     [SerializeField] private float durationToGrow;
     [SerializeField] private float durationToDisappear;
+    [SerializeField] private int damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,10 +17,11 @@ public class SpitController : MonoBehaviour
         Invoke("Disappear", durationToDisappear);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision other)
     {
-        
+        if (!other.gameObject.CompareTag("Enemy")) return;
+        other.gameObject.GetComponent<EnemyController>().TakeDamage(damage);
+        Disappear();
     }
 
     private void Disappear()

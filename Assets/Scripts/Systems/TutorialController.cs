@@ -29,19 +29,16 @@ namespace Systems
             _tutorialActive = true;
             _tutorialReady = false;
             ShowNextTutorial();
-            CloseTutorialZone();
         }
 
         private void OnEnable()
         {
             TutorialDisplay.OnTutorialDisplayEnd += ShowNextTutorial;
-            TutorialExit.OnTutorialZoneExit += CloseTutorialZone;
         }
 
         private void OnDisable()
         {
             TutorialDisplay.OnTutorialDisplayEnd -= ShowNextTutorial;
-            TutorialExit.OnTutorialZoneExit -= CloseTutorialZone;
         }
 
         private void Update()
@@ -107,7 +104,6 @@ namespace Systems
 
         private void TutorialCompleted()
         {
-            OpenTutorialZone();
             _tutorialActive = false;
             OnTutorialEnd?.Invoke();
         }

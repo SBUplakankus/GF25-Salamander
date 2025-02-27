@@ -152,3 +152,4 @@ MonoBehaviour:
   finalSize: 6
   durationToGrow: 0.5
   durationToDisappear: 3
+  damage: 20
