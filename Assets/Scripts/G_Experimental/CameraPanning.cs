@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class CameraPanning : MonoBehaviour
 {
-    public GameObject camera;
+    [Header("Settings")]
+    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject lights;
+    [SerializeField] private GameObject salamander;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
