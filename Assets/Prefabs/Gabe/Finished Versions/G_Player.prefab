@@ -126,8 +126,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3149857247167249962}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.044358745, y: -0.07145948, z: -0.0031811404, w: 0.99645156}
-  m_LocalPosition: {x: 0.41999435, y: 0.55422115, z: -2.9156847}
+  m_LocalRotation: {x: -0.035094623, y: -0.5883827, z: -0.02557427, w: 0.8074158}
+  m_LocalPosition: {x: 2.7992043, y: 0.5594537, z: -0.9007025}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -210,7 +210,7 @@ MonoBehaviour:
     SplineCurvature: 0
   RecenteringTarget: 3
   HorizontalAxis:
-    Value: -8.196876
+    Value: -72.16333
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: -6.2658343
+    Value: -5.926819
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -306,7 +306,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         LegacyInput: Mouse X
-        LegacyGain: 100
+        LegacyGain: 250
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -317,7 +317,7 @@ MonoBehaviour:
       Enabled: 1
       Input:
         LegacyInput: Mouse Y
-        LegacyGain: -100
+        LegacyGain: -250
         CancelDeltaTime: 0
       InputValue: -0
       Driver:
@@ -548,8 +548,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776883832890315063}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04435875, y: -0.07145948, z: -0.0031811409, w: 0.9964516}
-  m_LocalPosition: {x: -8.528585, y: -1.5020671, z: 5.7265897}
+  m_LocalRotation: {x: -0.03506451, y: -0.5884474, z: -0.02555657, w: 0.8073705}
+  m_LocalPosition: {x: -10.238058, y: -1.3088347, z: 11.190399}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -8,8 +8,8 @@ public class CameraPanning : MonoBehaviour
     void Start()
     {
         Camera.main.fieldOfView = 30;
-        camera.transform.position = new Vector3(0f, 1.7f, 7f);
-        Invoke("PanCamera", 10f);
+        camera.transform.position = new Vector3(0f, 1.8f, 7f);
+        Invoke("PanCamera", 5f);
     }
 
     private void PanCamera()

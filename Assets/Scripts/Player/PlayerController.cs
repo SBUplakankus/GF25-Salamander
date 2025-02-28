@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
-            
+            _animator.SetTrigger("Dash");
             StartCoroutine(DashCooldownCoroutine());
         }
         
@@ -121,21 +121,13 @@ public class PlayerController : MonoBehaviour
 
     private void Animate()
     {
-        //_animator.SetFloat("speed", 0.5f);
-        if (_canDash)
+        if (_horizontalInput == 0 && _verticalInput == 0)
         {
-            if (_horizontalInput == 0 && _verticalInput == 0)
-            {
-                _animator.SetFloat("speed", 0);
-            }
-            else
-            {
-                _animator.SetFloat("speed", 0.5f);
-            }
+            _animator.SetFloat("speed", 0);
         }
         else
         {
-            _animator.SetFloat("speed", 1);
+            _animator.SetFloat("speed", 0.5f);
         }
     }
     
