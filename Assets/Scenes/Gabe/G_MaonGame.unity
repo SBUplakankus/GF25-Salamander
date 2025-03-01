@@ -23005,6 +23005,14 @@ PrefabInstance:
       propertyPath: waterSound
       value: 
       objectReference: {fileID: 8300000, guid: e68cdf9e9c3557d438a4885d7272d582, type: 3}
+    - target: {fileID: 1729032808580092267, guid: 90b5cc6b91cb997468e87662a5629ee3, type: 3}
+      propertyPath: hungerReductionAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729032808580092267, guid: 90b5cc6b91cb997468e87662a5629ee3, type: 3}
+      propertyPath: hungerReductionInterval
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2040932995821454069, guid: 90b5cc6b91cb997468e87662a5629ee3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.226
