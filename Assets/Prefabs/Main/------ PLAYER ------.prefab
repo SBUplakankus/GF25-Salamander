@@ -713,7 +713,7 @@ MonoBehaviour:
   moistRegenAmount: 10
   zeroMoistDamage: 5
   hungerReductionInterval: 2
-  hungerReductionAmount: 5
+  hungerReductionAmount: 2
   zeroHungerDamage: 5
   healthRegenInterval: 2
   healthRegenAmount: 5
