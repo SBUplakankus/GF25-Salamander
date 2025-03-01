@@ -42,8 +42,8 @@ namespace AI
         private NavMeshAgent _navMeshAgent;
         private Rigidbody _rb;
         private EnemyState _enemyState;
-        private const int DisabledDuration = 3;
-        private const int SlowDownDuration = 3;
+        private const int DisabledDuration = 2;
+        private const int SlowDownDuration = 2;
         private const int ToxicDamageAmount = 10;
         private const int ToxicDamageInterval = 2;
         private bool _inToxicWaste;

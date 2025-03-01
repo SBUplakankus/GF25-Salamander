@@ -18,6 +18,7 @@ namespace UI
         [SerializeField] private RectTransform controlsPanel;
         [SerializeField] private RectTransform playerPanel;
         [SerializeField] private RectTransform gameOverPanel;
+        [SerializeField] private RectTransform abilitiesPanel;
         [SerializeField] private GameObject uiBlur;
         
         [Header("End Screen")]
@@ -34,6 +35,7 @@ namespace UI
         private const int PlayerHideAmountX = -900;
         private const int GameOverHideAmountY = -1100;
         private const int TutorialSkipHideX = -450;
+        private const int AbilitiesHideX = 600;
         private const float AnimationDuration = 0.5f;
         private const Ease AnimationEase = Ease.OutCubic;
 
@@ -46,6 +48,8 @@ namespace UI
             DisableBlur();
             UnPauseTime();
             StartCoroutine(DisplaySkipCoroutine());
+            ShowPlayerAbilitiesPanel();
+            ShowPlayerPanel();
         }
 
         private void OnEnable()
@@ -171,6 +175,7 @@ namespace UI
             tutorialPanel.gameObject.SetActive(false);
             tutorialSkipPanel.gameObject.SetActive(false);
             HidePlayerPanel();
+            HidePlayerAbilitiesPanel();
             EnableBlur();
             PauseTime();
         }
@@ -190,6 +195,16 @@ namespace UI
             HidePanel(1, sadPanel, -1500);
             HidePanel(1,scorePanel,0);
         }
+
+        private void HidePlayerAbilitiesPanel()
+        {
+            HidePanel(0, abilitiesPanel, AbilitiesHideX);
+        }
+
+        private void ShowPlayerAbilitiesPanel()
+        {
+            ShowPanel(abilitiesPanel, true);
+        }
         
         #endregion
 
@@ -205,6 +220,7 @@ namespace UI
                 HidePausePanel();
                 DisableBlur();
                 ShowPlayerPanel();
+                ShowPlayerAbilitiesPanel();
                 UnPauseTime();
             }
             else
@@ -214,6 +230,7 @@ namespace UI
                 ShowPausePanel();
                 EnableBlur();
                 HidePlayerPanel();
+                HidePlayerAbilitiesPanel();
                 PauseTime();
             }
 
@@ -242,7 +259,8 @@ namespace UI
 
         public void RestartGame()
         {
-            SceneManager.LoadScene(0);
+            Time.timeScale = 1;
+            SceneManager.LoadScene(1);
         }
 
         #endregion

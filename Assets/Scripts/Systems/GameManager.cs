@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Systems
 {
@@ -15,17 +16,16 @@ namespace Systems
 
         private void Start()
         {
-            Application.targetFrameRate = 60;
             _gameTime = 0;
         }
 
         private void Update()
         {
             _gameTime += Time.deltaTime;
-            if (_gameTime >= GameLength)
-            {
-                OnTimerExpiration?.Invoke();
-            }
+            if (!(_gameTime >= GameLength)) return;
+            
+            OnTimerExpiration?.Invoke();
+            SceneManager.LoadScene(0);
         }
     }
 }

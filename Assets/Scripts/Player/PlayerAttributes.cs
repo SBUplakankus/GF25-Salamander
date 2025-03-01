@@ -3,6 +3,7 @@ using System.Collections;
 using AI;
 using UnityEngine;
 using World;
+using Random = UnityEngine.Random;
 
 namespace Player
 {
@@ -164,7 +165,7 @@ namespace Player
         {
             if (healthLevel <= 0) return;
             healthLevel -= amount;
-            _audioSource.PlayOneShot(hurtSound);
+            PlaySfx(hurtSound);
             if (healthLevel <= 0)
             {
                 OnGameOver?.Invoke();
@@ -178,7 +179,7 @@ namespace Player
         {
             var temp = moistLevel += amount;
             moistLevel = temp >= _maxMoist ? _maxMoist : temp;
-            _audioSource.PlayOneShot(waterSound);
+            PlaySfx(waterSound);
             OnMoistLevelChanged?.Invoke(moistLevel);
         }
 
@@ -193,7 +194,7 @@ namespace Player
         {
             var temp = hungerLevel += amount;
             hungerLevel = temp >= _maxHunger ? _maxHunger : temp;
-            _audioSource.PlayOneShot(eatSound);
+            PlaySfx(eatSound);
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
         
@@ -203,6 +204,12 @@ namespace Player
             _maxMoist = moistLevel;
             _maxHunger = hungerLevel;
             _maxHealth = healthLevel;
+        }
+
+        private void PlaySfx(AudioClip clip)
+        {
+            _audioSource.pitch = Random.Range(0.8f, 1.2f);
+            _audioSource.PlayOneShot(clip);
         }
         #endregion
         
