@@ -4291,7 +4291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5845996468364325549, guid: 28adfdc3591b61b41ae015619c90c2d8, type: 3}
       propertyPath: m_Shadows.m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6616485903216430151, guid: 28adfdc3591b61b41ae015619c90c2d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4551,7 +4551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2040932995821454069, guid: 90b5cc6b91cb997468e87662a5629ee3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.479
+      value: -0.342
       objectReference: {fileID: 0}
     - target: {fileID: 2040932995821454069, guid: 90b5cc6b91cb997468e87662a5629ee3, type: 3}
       propertyPath: m_AnchoredPosition.y
