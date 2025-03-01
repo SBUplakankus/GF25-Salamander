@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,10 +38,21 @@ public class PlayerController : MonoBehaviour
     //animation
     private Animator _animator;
     
+    [FormerlySerializedAs("_spitSound")]
+    [Header("Sounds")]
+    [SerializeField] private AudioClip spitSound;
+    [SerializeField] private AudioClip dashSound;
+    [SerializeField] private AudioClip walkSound;
+    private AudioSource _audioSource;
+    
+    private const float StepInterval = 0.4f; // Time between steps
+    private float _nextStepTime = 0f; // Timer to track when to play the next step
+    
     //public static event Action<int> OnPlayerSpit;
     
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
         _animator.SetFloat("speed", 0);
@@ -68,6 +80,7 @@ public class PlayerController : MonoBehaviour
         //for dashing
         if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
+            _audioSource.PlayOneShot(dashSound);
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
             _animator.SetTrigger("Dash");
             StartCoroutine(DashCooldownCoroutine());
@@ -76,7 +89,9 @@ public class PlayerController : MonoBehaviour
         //for attacking
         if (Input.GetKeyDown(KeyCode.E) && _canSpit /*&& moistLevel >= MoistureTakeAway*/)
         {
-            ShootSpit();
+            _audioSource.volume = 0.2f;
+            _audioSource.PlayOneShot(spitSound);
+            Invoke("ShootSpit", 0.2f);
             StartCoroutine(SpitCooldownCoroutine());
             //OnPlayerSpit?.Invoke(MoistureTakeAway);
         }
@@ -128,6 +143,9 @@ public class PlayerController : MonoBehaviour
         else
         {
             _animator.SetFloat("speed", 0.5f);
+            if (!(Time.time >= _nextStepTime)) return;
+            _audioSource.PlayOneShot(walkSound);
+            _nextStepTime = Time.time + StepInterval;
         }
     }
     
