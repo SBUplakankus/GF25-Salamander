@@ -1,10 +1,12 @@
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraPanning : MonoBehaviour
 {
+    [FormerlySerializedAs("camera")]
     [Header("Settings")]
-    [SerializeField] private GameObject camera;
+    [SerializeField] private GameObject cameraModel;
     [SerializeField] private GameObject lights;
     [SerializeField] private GameObject salamander;
     
@@ -13,7 +15,7 @@ public class CameraPanning : MonoBehaviour
     void Start()
     {
         Camera.main.fieldOfView = 30;
-        camera.transform.position = new Vector3(0f, 1.8f, 7f);
+        cameraModel.transform.position = new Vector3(0f, 1.8f, 7f);
         
         lights.SetActive(false);
         _animator = salamander.GetComponent<Animator>();
@@ -24,7 +26,7 @@ public class CameraPanning : MonoBehaviour
 
     private void PanCamera()
     {
-        Tween.PositionZ(camera.transform, 2, 15f);
+        Tween.PositionZ(cameraModel.transform, 2, 15f);
         Tween.Custom(30, 60, duration: 15f, onValueChange: newVal  => Camera.main.fieldOfView = newVal).OnComplete(() => Invoke("EndScene", 1f));;
         //Tween.Delay(duration: 16f, () => Tween.Custom(60, 20, duration: 4f, onValueChange: newVal => Camera.main.fieldOfView = newVal));
         //Invoke("TestReset", 25f);
