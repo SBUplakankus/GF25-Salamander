@@ -11,6 +11,7 @@ public class CameraPanning : MonoBehaviour
     [SerializeField] private GameObject salamander;
     
     private Animator _animator;
+    private AudioSource _audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,8 +20,10 @@ public class CameraPanning : MonoBehaviour
         
         lights.SetActive(false);
         _animator = salamander.GetComponent<Animator>();
+        _audioSource = cameraModel.GetComponent<AudioSource>();
         
-        
+        Invoke("StartSound", 0.5f);
+        //_audioSource.Play();
         Invoke("StartScene", 2f);
     }
 
@@ -34,6 +37,7 @@ public class CameraPanning : MonoBehaviour
 
     private void StartScene()
     {
+        //_audioSource.Play();
         lights.SetActive(true);
         _animator.SetTrigger("Start");
         Invoke("PanCamera", 5f);
@@ -42,5 +46,10 @@ public class CameraPanning : MonoBehaviour
     private void EndScene()
     {
         lights.SetActive(false);
+    }
+
+    private void StartSound()
+    {
+        _audioSource.Play();
     }
 }
