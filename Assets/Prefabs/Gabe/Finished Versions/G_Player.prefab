@@ -452,6 +452,9 @@ MonoBehaviour:
   zeroHungerDamage: 5
   healthRegenInterval: 2
   healthRegenAmount: 5
+  hurtSound: {fileID: 8300000, guid: 6085f3dcac20b9f418d0af112cec85b8, type: 3}
+  eatSound: {fileID: 8300000, guid: 285926d74257a974493b52c9b40070b3, type: 3}
+  waterSound: {fileID: 8300000, guid: e68cdf9e9c3557d438a4885d7272d582, type: 3}
 --- !u!114 &3537953496409753018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,8 +652,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776883832890315063}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.05544104, y: 0.0000000017395557, z: 9.659133e-11, w: 0.99846196}
-  m_LocalPosition: {x: -8.94858, y: -0.06999993, z: 5.6422744}
+  m_LocalRotation: {x: -0.02285032, y: -7.106946e-10, z: -1.624384e-11, w: 0.99973893}
+  m_LocalPosition: {x: -8.94858, y: 0.08815181, z: 5.8004265}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

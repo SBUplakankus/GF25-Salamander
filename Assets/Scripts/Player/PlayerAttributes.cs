@@ -29,6 +29,12 @@ namespace Player
         [SerializeField] private int healthRegenInterval = 1;
         [SerializeField] private int healthRegenAmount = 5;
         
+        [Header("Sounds")]
+        [SerializeField] private AudioClip hurtSound;
+        [SerializeField] private AudioClip eatSound;
+        [SerializeField] private AudioClip waterSound;
+        private AudioSource _audioSource;
+        
         private int _maxHealth;
         private int _maxMoist;
         private int _maxHunger;
@@ -57,6 +63,7 @@ namespace Player
         private void Start()
         {
             OnInitSliderValues?.Invoke(healthLevel, moistLevel, hungerLevel);
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void OnEnable()
@@ -157,6 +164,7 @@ namespace Player
         {
             if (healthLevel <= 0) return;
             healthLevel -= amount;
+            _audioSource.PlayOneShot(hurtSound);
             if (healthLevel <= 0)
             {
                 OnGameOver?.Invoke();
@@ -170,6 +178,7 @@ namespace Player
         {
             var temp = moistLevel += amount;
             moistLevel = temp >= _maxMoist ? _maxMoist : temp;
+            _audioSource.PlayOneShot(waterSound);
             OnMoistLevelChanged?.Invoke(moistLevel);
         }
 
@@ -184,6 +193,7 @@ namespace Player
         {
             var temp = hungerLevel += amount;
             hungerLevel = temp >= _maxHunger ? _maxHunger : temp;
+            _audioSource.PlayOneShot(eatSound);
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
         

@@ -80,7 +80,6 @@ public class PlayerController : MonoBehaviour
         //for dashing
         if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
-            _audioSource.volume = 1f;
             _audioSource.PlayOneShot(dashSound);
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
             _animator.SetTrigger("Dash");
@@ -145,7 +144,6 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetFloat("speed", 0.5f);
             if (!(Time.time >= _nextStepTime)) return;
-            _audioSource.volume = 0.2f;
             _audioSource.PlayOneShot(walkSound);
             _nextStepTime = Time.time + StepInterval;
         }
