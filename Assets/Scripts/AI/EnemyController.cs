@@ -196,6 +196,7 @@ namespace AI
         private IEnumerator AttackPlayerCoroutine()
         {
             _navMeshAgent.enabled = false;
+            transform.LookAt(playerPosition);
             var direction = (playerPosition.position - transform.position).normalized;
             _rb.isKinematic = false;
             _rb.AddForce(direction * leapForce, ForceMode.Impulse);

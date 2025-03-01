@@ -25,7 +25,6 @@ namespace Systems
             if (!(_gameTime >= GameLength)) return;
             
             OnTimerExpiration?.Invoke();
-            SceneManager.LoadScene(0);
         }
     }
 }

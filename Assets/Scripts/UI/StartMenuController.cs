@@ -64,7 +64,7 @@ namespace UI
         {
             yield return new WaitForSeconds(ButtonInterval);
             ShowPanel(titlePanel);
-            yield return new WaitForSeconds(ButtonInterval * 3);
+            yield return new WaitForSeconds(ButtonInterval * 2);
             ShowPanel(playPanel);
             yield return new WaitForSeconds(ButtonInterval);
             ShowPanel(creditsPanel);

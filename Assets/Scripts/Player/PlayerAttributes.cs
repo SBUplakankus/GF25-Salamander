@@ -185,6 +185,7 @@ namespace Player
 
         private void IncreaseHealthLevel(int amount)
         {
+            if(healthLevel >= _maxHealth) return;
             var temp = healthLevel += amount;
             healthLevel = temp >= _maxHealth ? _maxHealth : temp;
             OnHealthLevelChanged?.Invoke(healthLevel);
