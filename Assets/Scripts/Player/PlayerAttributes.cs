@@ -165,7 +165,7 @@ namespace Player
         {
             if (healthLevel <= 0) return;
             healthLevel -= amount;
-            PlaySfx(hurtSound);
+            PlaySfx(hurtSound, 0.8f);
             if (healthLevel <= 0)
             {
                 OnGameOver?.Invoke();
@@ -179,7 +179,7 @@ namespace Player
         {
             var temp = moistLevel += amount;
             moistLevel = temp >= _maxMoist ? _maxMoist : temp;
-            PlaySfx(waterSound);
+            PlaySfx(waterSound, 0.6f);
             OnMoistLevelChanged?.Invoke(moistLevel);
         }
 
@@ -195,7 +195,7 @@ namespace Player
         {
             var temp = hungerLevel += amount;
             hungerLevel = temp >= _maxHunger ? _maxHunger : temp;
-            PlaySfx(eatSound);
+            PlaySfx(eatSound, 0.8f);
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
         
@@ -207,8 +207,9 @@ namespace Player
             _maxHealth = healthLevel;
         }
 
-        private void PlaySfx(AudioClip clip)
+        private void PlaySfx(AudioClip clip, float volume)
         {
+            _audioSource.volume = volume;
             _audioSource.pitch = Random.Range(0.8f, 1.2f);
             _audioSource.PlayOneShot(clip);
         }

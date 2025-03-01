@@ -16,6 +16,10 @@ namespace UI
         [SerializeField] private RectTransform creditsDisplayPanel;
         private bool _creditsOpen;
 
+        [Header("Canvas Groups")] 
+        [SerializeField] private CanvasGroup menu;
+        [SerializeField] private CanvasGroup black;
+
         [Header("Animation Settings")] 
         private const float AnimationDuration = 0.6f;
         private const float ButtonInterval = 0.25f;
@@ -25,11 +29,26 @@ namespace UI
         private void Start()
         {
             StartCoroutine(DisplayButtonsCoroutine());
+            FadeIn();
         }
 
         private static void ShowPanel(RectTransform panel)
         {
             Tween.UIAnchoredPosition(panel, Vector2.zero, AnimationDuration, AnimationEase);
+        }
+
+        private void FadeIn()
+        {
+            menu.alpha = 0;
+            black.alpha = 1;
+            Tween.Alpha(menu, 1, 1.5f);
+            Tween.Alpha(black, 0, 1.5f);
+        }
+
+        private void FadeOut()
+        {
+            Tween.Alpha(menu, 0, 3f);
+            Tween.Alpha(black, 1, 3f).OnComplete(() => SceneManager.LoadScene(1));
         }
         
         private void HideCreditsPanel()
@@ -52,7 +71,7 @@ namespace UI
 
         public void PlayGame()
         {
-            SceneManager.LoadScene(1);
+            FadeOut();
         }
 
         public void QuitGame()
