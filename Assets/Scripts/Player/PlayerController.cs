@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,10 +17,10 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTransform;
     
     private bool _canDash;
-    private const float DashCooldown = 2f;
+    private const int DashCooldown = 2;
 
     private bool _canSpit;
-    private const float SpitCooldown = 1f;
+    private const int SpitCooldown = 1;
 
     public Transform playerOrientation;
     //inputs
@@ -47,8 +48,9 @@ public class PlayerController : MonoBehaviour
     
     private const float StepInterval = 0.4f; // Time between steps
     private float _nextStepTime = 0f; // Timer to track when to play the next step
-    
-    //public static event Action<int> OnPlayerSpit;
+
+    public static event Action<int> OnPlayerSpit;
+    public static event Action<int> OnPlayerDash; 
     
     void Start()
     {
@@ -80,7 +82,7 @@ public class PlayerController : MonoBehaviour
         //for dashing
         if (Input.GetKeyDown(KeyCode.Q) && _canDash)
         {
-            _audioSource.PlayOneShot(dashSound);
+            PlaySfx(dashSound, 0.8f);
             _rb.AddForce(transform.forward * playerDash, ForceMode.Impulse);
             _animator.SetTrigger("Dash");
             StartCoroutine(DashCooldownCoroutine());
@@ -89,8 +91,7 @@ public class PlayerController : MonoBehaviour
         //for attacking
         if (Input.GetKeyDown(KeyCode.E) && _canSpit /*&& moistLevel >= MoistureTakeAway*/)
         {
-            _audioSource.volume = 0.2f;
-            _audioSource.PlayOneShot(spitSound);
+            PlaySfx(spitSound, 0.3f);
             Invoke("ShootSpit", 0.2f);
             StartCoroutine(SpitCooldownCoroutine());
             //OnPlayerSpit?.Invoke(MoistureTakeAway);
@@ -144,7 +145,7 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetFloat("speed", 0.5f);
             if (!(Time.time >= _nextStepTime)) return;
-            _audioSource.PlayOneShot(walkSound);
+            PlaySfx(walkSound, 0.08f);
             _nextStepTime = Time.time + StepInterval;
         }
     }
@@ -154,6 +155,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DashCooldownCoroutine()
     {
         _canDash = false;
+        OnPlayerDash?.Invoke(DashCooldown);
         yield return new WaitForSeconds(DashCooldown);
         _canDash = true;
     }
@@ -161,6 +163,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SpitCooldownCoroutine()
     {
         _canSpit = false;
+        OnPlayerSpit?.Invoke(SpitCooldown);
         yield return new WaitForSeconds(SpitCooldown);
         _canSpit = true;
     }
@@ -169,5 +172,12 @@ public class PlayerController : MonoBehaviour
     {
         moistLevel = currentMoistLevel;
     }*/
+    
+    private void PlaySfx(AudioClip clip, float volume)
+    {
+        _audioSource.volume = volume;
+        _audioSource.pitch = Random.Range(0.7f, 1f);
+        _audioSource.PlayOneShot(clip);
+    }
     
 }
