@@ -27,6 +27,8 @@ namespace UI
 
         [Header("Canvas Groups")] 
         [SerializeField] private CanvasGroup tutorialGroup;
+        [SerializeField] private CanvasGroup gameUi;
+        [SerializeField] private CanvasGroup fadeToBlack;
         
         [Header("Animation Params")]
         private const int TutorialHideAmountY = 300;
@@ -50,6 +52,10 @@ namespace UI
             StartCoroutine(DisplaySkipCoroutine());
             ShowPlayerAbilitiesPanel();
             ShowPlayerPanel();
+            gameUi.alpha = 0;
+            fadeToBlack.alpha = 1;
+            Tween.Alpha(gameUi, 1, 2.5f);
+            Tween.Alpha(fadeToBlack, 0, 2.5f);
         }
 
         private void OnEnable()
@@ -58,6 +64,7 @@ namespace UI
             TutorialController.OnShowNextTutorial += ShowTutorialPanel;
             PlayerAttributes.OnGameOver += ShowGameOverPanel;
             TutorialController.OnTutorialSkip += HideTutorialPanel;
+            GameManager.OnTimerExpiration += HandleTimerExpiration;
         }
 
         private void OnDisable()
@@ -66,6 +73,7 @@ namespace UI
             TutorialController.OnShowNextTutorial -= ShowTutorialPanel;
             PlayerAttributes.OnGameOver -= ShowGameOverPanel;
             TutorialController.OnTutorialSkip -= HideTutorialPanel;
+            GameManager.OnTimerExpiration -= HandleTimerExpiration;
         }
 
         private void Update()
@@ -78,7 +86,7 @@ namespace UI
         
         #region Base Functions
 
-        private void HidePanel(int xy, RectTransform panel, int amount)
+        private static void HidePanel(int xy, RectTransform panel, int amount)
         {
             var pos = panel.anchoredPosition;
             
@@ -94,7 +102,7 @@ namespace UI
             panel.anchoredPosition = pos;
         }
         
-        private void ShowPanel(RectTransform panel, bool useTimeScale)
+        private static void ShowPanel(RectTransform panel, bool useTimeScale)
         {
             if (useTimeScale)
             {
@@ -237,6 +245,11 @@ namespace UI
             _pauseMenuOpen = !_pauseMenuOpen;
         }
 
+        private void HandleTimerExpiration()
+        {
+            StartCoroutine(EndGameCoroutine());
+        }
+
         private void HandleTutorialOpacity(bool show)
         {
             tutorialGroup.alpha = show ? 1 : 0;
@@ -247,6 +260,14 @@ namespace UI
             ShowTutorialSkipPanel();
             yield return new WaitForSeconds(7);
             HideTutorialSkipPanel();
+        }
+
+        private IEnumerator EndGameCoroutine()
+        {
+            Tween.Alpha(gameUi, 0, 3f);
+            Tween.Alpha(fadeToBlack, 1, 3f);
+            yield return new WaitForSeconds(6f);
+            SceneManager.LoadScene(2);
         }
         #endregion
 

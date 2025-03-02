@@ -1,5 +1,7 @@
+using System.Collections;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class CameraPanning : MonoBehaviour
@@ -9,6 +11,7 @@ public class CameraPanning : MonoBehaviour
     [SerializeField] private GameObject cameraModel;
     [SerializeField] private GameObject lights;
     [SerializeField] private GameObject salamander;
+    [SerializeField] private CanvasGroup text;
     
     private Animator _animator;
     private AudioSource _audioSource;
@@ -46,10 +49,21 @@ public class CameraPanning : MonoBehaviour
     private void EndScene()
     {
         lights.SetActive(false);
+        StartCoroutine(EndingCoroutine());
     }
 
     private void StartSound()
     {
         _audioSource.Play();
+    }
+
+    private IEnumerator EndingCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Tween.Alpha(text, 1, 2.5f);
+        yield return new WaitForSeconds(4f);
+        Tween.Alpha(text, 0, 2.5f);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(0);
     }
 }

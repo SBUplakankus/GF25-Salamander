@@ -629,6 +629,10 @@ PrefabInstance:
       propertyPath: finalSize
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 426724463513830397, guid: 6a83ce00828d36948a8d7a0fb474d726, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4758513662992677295, guid: 6a83ce00828d36948a8d7a0fb474d726, type: 3}
       propertyPath: m_Name
       value: SizingWater

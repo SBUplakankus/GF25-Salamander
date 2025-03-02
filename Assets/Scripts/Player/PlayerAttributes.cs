@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using AI;
+using Systems;
 using UnityEngine;
 using World;
 using Random = UnityEngine.Random;
@@ -44,6 +45,7 @@ namespace Player
         private bool _moistModifierReady = true;
         private bool _hungerModifierReady = true;
         private bool _healthModifierReady = true;
+        private bool _gameOver;
         
         #region Events
         public static event Action<int> OnHealthLevelChanged;
@@ -65,6 +67,7 @@ namespace Player
         {
             OnInitSliderValues?.Invoke(healthLevel, moistLevel, hungerLevel);
             _audioSource = GetComponent<AudioSource>();
+            _gameOver = false;
         }
 
         private void OnEnable()
@@ -73,6 +76,7 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
             FoodObject.OnFoodPickup += IncreaseHungerLevel;
             EnemyController.OnPlayerDamage += DecreaseHealthLevel;
+            GameManager.OnTimerExpiration += HandleGameOver;
             //PlayerController.OnPlayerSpit += DecreaseMoistLevel;
         }
 
@@ -82,11 +86,13 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
             FoodObject.OnFoodPickup -= IncreaseHungerLevel;
             EnemyController.OnPlayerDamage -= DecreaseHealthLevel;
+            GameManager.OnTimerExpiration -= HandleGameOver;
             //PlayerController.OnPlayerSpit -= DecreaseMoistLevel;
         }
 
         private void Update()
         {
+            if(_gameOver) return;
             if (_moistModifierReady)
             {
                 if (_isMoist)
@@ -165,7 +171,7 @@ namespace Player
         {
             if (healthLevel <= 0) return;
             healthLevel -= amount;
-            PlaySfx(hurtSound);
+            PlaySfx(hurtSound, 0.8f);
             if (healthLevel <= 0)
             {
                 OnGameOver?.Invoke();
@@ -179,12 +185,13 @@ namespace Player
         {
             var temp = moistLevel += amount;
             moistLevel = temp >= _maxMoist ? _maxMoist : temp;
-            PlaySfx(waterSound);
+            PlaySfx(waterSound, 0.6f);
             OnMoistLevelChanged?.Invoke(moistLevel);
         }
 
         private void IncreaseHealthLevel(int amount)
         {
+            if(healthLevel >= _maxHealth) return;
             var temp = healthLevel += amount;
             healthLevel = temp >= _maxHealth ? _maxHealth : temp;
             OnHealthLevelChanged?.Invoke(healthLevel);
@@ -194,7 +201,7 @@ namespace Player
         {
             var temp = hungerLevel += amount;
             hungerLevel = temp >= _maxHunger ? _maxHunger : temp;
-            PlaySfx(eatSound);
+            PlaySfx(eatSound, 0.8f);
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
         
@@ -206,10 +213,16 @@ namespace Player
             _maxHealth = healthLevel;
         }
 
-        private void PlaySfx(AudioClip clip)
+        private void PlaySfx(AudioClip clip, float volume)
         {
+            _audioSource.volume = volume;
             _audioSource.pitch = Random.Range(0.8f, 1.2f);
             _audioSource.PlayOneShot(clip);
+        }
+
+        private void HandleGameOver()
+        {
+            _gameOver = true;
         }
         #endregion
         

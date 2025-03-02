@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using Systems;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float playerDrag;
     public float playerDash;
     public Transform cameraTransform;
+    private bool _gameOver;
     
     private bool _canDash;
     private const int DashCooldown = 2;
@@ -54,6 +56,7 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
+        _gameOver = false;
         _audioSource = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
@@ -63,19 +66,20 @@ public class PlayerController : MonoBehaviour
         //moistLevel = 0;
     }
 
-    /*void onEnable()
+    void OnEnable()
     {
-        PlayerAttributes.OnMoistLevelChanged += HandleMoistChange;
+        GameManager.OnTimerExpiration += HandleGameOver;
     }
 
-    void onDisable()
+    void OnDisable()
     {
-        PlayerAttributes.OnMoistLevelChanged -= HandleMoistChange;
-    }*/
+        GameManager.OnTimerExpiration -= HandleGameOver;
+    }
     
     // Update is called once per frame
     void Update()
     {
+        if (_gameOver) return;
         MyInput();
         MovePlayer();
         
@@ -178,6 +182,11 @@ public class PlayerController : MonoBehaviour
         _audioSource.volume = volume;
         _audioSource.pitch = Random.Range(0.7f, 1f);
         _audioSource.PlayOneShot(clip);
+    }
+
+    private void HandleGameOver()
+    {
+        _gameOver = true;
     }
     
 }

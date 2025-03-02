@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PrimeTween;
 using Scriptable_Objects;
+using Systems;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ namespace AI
         [SerializeField] private List<Transform> patrolPositions;
         [SerializeField] private Transform retreatPoint;
         private Transform _currentTarget;
+        private bool _gameOver;
 
         [Header("Enemy Stats")]
         [SerializeField] private EnemySO enemyStats;
@@ -62,10 +64,17 @@ namespace AI
         private void OnEnable()
         {
             InitEnemyStats();
+            GameManager.OnTimerExpiration += HandleGameOver;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnTimerExpiration -= HandleGameOver;
         }
 
         private void Update()
         {
+            if (_gameOver) return;
             if (_inToxicWaste && _damageReady)
             {
                 StartCoroutine(ToxicDamageCoroutine());
@@ -154,7 +163,7 @@ namespace AI
             if (!other.gameObject.CompareTag("Damage")) return;
             _inToxicWaste = false;
         }
-
+        
         private void InitEnemyStats()
         {
             _enemyState = EnemyState.Roaming;
@@ -167,6 +176,7 @@ namespace AI
             _navMeshAgent.speed = enemyStats.enemySpeed;
             _currentTarget = patrolPositions[0];
             _inToxicWaste = false;
+            _gameOver = false;
             hp.maxValue = _maxHealth;
             hp.value = _currentHealth;
             HideHealthBar();
@@ -196,6 +206,7 @@ namespace AI
         private IEnumerator AttackPlayerCoroutine()
         {
             _navMeshAgent.enabled = false;
+            transform.LookAt(playerPosition);
             var direction = (playerPosition.position - transform.position).normalized;
             _rb.isKinematic = false;
             _rb.AddForce(direction * leapForce, ForceMode.Impulse);
@@ -249,6 +260,11 @@ namespace AI
         {
             _hpViewable = false;
             hp.transform.localScale = Vector3.zero;
+        }
+
+        private void HandleGameOver()
+        {
+            _gameOver = true;
         }
     }
 }
