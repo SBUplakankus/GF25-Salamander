@@ -70,6 +70,10 @@ namespace UI
             enabled = false;
         }
         
+        /// <summary>
+        /// Change the colour to green, wait to hide the display then wait for the interval between displays
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator TaskCompletionCoroutine()
         {
             SetTextColour(1);

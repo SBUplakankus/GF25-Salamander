@@ -47,6 +47,7 @@ namespace UI
         private void Start()
         {
             _pauseMenuOpen = false;
+            Cursor.visible = false;
             DisableBlur();
             UnPauseTime();
             StartCoroutine(DisplaySkipCoroutine());
@@ -230,6 +231,7 @@ namespace UI
                 ShowPlayerPanel();
                 ShowPlayerAbilitiesPanel();
                 UnPauseTime();
+                Cursor.visible = false;
             }
             else
             {
@@ -240,6 +242,7 @@ namespace UI
                 HidePlayerPanel();
                 HidePlayerAbilitiesPanel();
                 PauseTime();
+                Cursor.visible = true;
             }
 
             _pauseMenuOpen = !_pauseMenuOpen;
