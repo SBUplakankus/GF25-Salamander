@@ -2659,10 +2659,6 @@ MonoBehaviour:
   creditsDisplayPanel: {fileID: 1655505967}
   menu: {fileID: 814291935}
   black: {fileID: 1534987177}
-  buttons:
-  - {fileID: 361376530}
-  - {fileID: 607484097}
-  - {fileID: 1096649778}
 --- !u!1 &1390227733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,7 +3024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b6325aa513386f74286b6cbad62faf02, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7fb7943a89fe994e847b893c7b37aef, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

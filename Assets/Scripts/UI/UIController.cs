@@ -114,12 +114,12 @@ namespace UI
             }
         }
 
-        private void PauseTime()
+        private static void PauseTime()
         {
             Time.timeScale = 0;
         }
 
-        private void UnPauseTime()
+        private static void UnPauseTime()
         {
             Time.timeScale = 1;
         }
@@ -264,9 +264,9 @@ namespace UI
 
         private IEnumerator EndGameCoroutine()
         {
-            Tween.Alpha(gameUi, 0, 3f);
-            Tween.Alpha(fadeToBlack, 1, 3f);
-            yield return new WaitForSeconds(6f);
+            Tween.Alpha(gameUi, 0, 2f);
+            Tween.Alpha(fadeToBlack, 1, 2f);
+            yield return new WaitForSeconds(11f);
             SceneManager.LoadScene(2);
         }
         #endregion
