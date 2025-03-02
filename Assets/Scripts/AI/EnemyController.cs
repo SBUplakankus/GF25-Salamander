@@ -92,6 +92,7 @@ namespace AI
             var playerDistance = GetRemainingDistance(playerPosition);
             var targetDistance = GetRemainingDistance(_currentTarget);
             
+            // The enemy runs off of a state machine
             switch (_enemyState)
             {
                 case EnemyState.Roaming:

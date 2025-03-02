@@ -114,12 +114,12 @@ namespace UI
             }
         }
 
-        private void PauseTime()
+        private static void PauseTime()
         {
             Time.timeScale = 0;
         }
 
-        private void UnPauseTime()
+        private static void UnPauseTime()
         {
             Time.timeScale = 1;
         }
@@ -266,7 +266,7 @@ namespace UI
         {
             Tween.Alpha(gameUi, 0, 3f);
             Tween.Alpha(fadeToBlack, 1, 3f);
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(12f);
             SceneManager.LoadScene(2);
         }
         #endregion
