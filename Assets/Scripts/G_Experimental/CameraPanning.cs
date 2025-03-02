@@ -18,6 +18,7 @@ public class CameraPanning : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Cursor.visible = false;
         Camera.main.fieldOfView = 30;
         cameraModel.transform.position = new Vector3(0f, 1.8f, 7f);
         

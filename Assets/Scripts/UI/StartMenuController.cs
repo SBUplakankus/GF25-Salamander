@@ -29,6 +29,7 @@ namespace UI
 
         private void Start()
         {
+            Cursor.visible = true;
             StartCoroutine(DisplayButtonsCoroutine());
             FadeIn();
         }
