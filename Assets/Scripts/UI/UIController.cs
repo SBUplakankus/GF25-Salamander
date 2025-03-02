@@ -264,9 +264,9 @@ namespace UI
 
         private IEnumerator EndGameCoroutine()
         {
-            Tween.Alpha(gameUi, 0, 3f);
-            Tween.Alpha(fadeToBlack, 1, 3f);
-            yield return new WaitForSeconds(12f);
+            Tween.Alpha(gameUi, 0, 2f);
+            Tween.Alpha(fadeToBlack, 1, 2f);
+            yield return new WaitForSeconds(11f);
             SceneManager.LoadScene(2);
         }
         #endregion

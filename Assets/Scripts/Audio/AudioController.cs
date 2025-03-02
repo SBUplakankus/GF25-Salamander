@@ -31,7 +31,8 @@ namespace Audio
         
         private void HandleTimerExpiration()
         {
-            sfxPlayer.volume = 0.8f;
+            sfxPlayer.pitch = 1f;
+            sfxPlayer.volume = 1f;
             sfxPlayer.PlayOneShot(caughtSfx);
         }
 

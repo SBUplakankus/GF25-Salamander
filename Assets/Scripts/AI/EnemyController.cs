@@ -266,6 +266,7 @@ namespace AI
         private void HandleGameOver()
         {
             _gameOver = true;
+            enabled = false;
         }
     }
 }
