@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Water Snake
   m_EditorClassIdentifier: 
   enemyHealth: 80
-  enemySpeed: 2
+  enemySpeed: 3
   enemyDamage: 20
   enemyAttackInterval: 5

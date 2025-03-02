@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using AI;
+using Systems;
 using UnityEngine;
 using World;
 using Random = UnityEngine.Random;
@@ -44,6 +45,7 @@ namespace Player
         private bool _moistModifierReady = true;
         private bool _hungerModifierReady = true;
         private bool _healthModifierReady = true;
+        private bool _gameOver;
         
         #region Events
         public static event Action<int> OnHealthLevelChanged;
@@ -65,6 +67,7 @@ namespace Player
         {
             OnInitSliderValues?.Invoke(healthLevel, moistLevel, hungerLevel);
             _audioSource = GetComponent<AudioSource>();
+            _gameOver = false;
         }
 
         private void OnEnable()
@@ -73,6 +76,7 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer += DecreaseHealthLevel;
             FoodObject.OnFoodPickup += IncreaseHungerLevel;
             EnemyController.OnPlayerDamage += DecreaseHealthLevel;
+            GameManager.OnTimerExpiration += HandleGameOver;
             //PlayerController.OnPlayerSpit += DecreaseMoistLevel;
         }
 
@@ -82,11 +86,13 @@ namespace Player
             DamageObjectAOE.OnDamagePlayer -= DecreaseHealthLevel;
             FoodObject.OnFoodPickup -= IncreaseHungerLevel;
             EnemyController.OnPlayerDamage -= DecreaseHealthLevel;
+            GameManager.OnTimerExpiration -= HandleGameOver;
             //PlayerController.OnPlayerSpit -= DecreaseMoistLevel;
         }
 
         private void Update()
         {
+            if(_gameOver) return;
             if (_moistModifierReady)
             {
                 if (_isMoist)
@@ -212,6 +218,11 @@ namespace Player
             _audioSource.volume = volume;
             _audioSource.pitch = Random.Range(0.8f, 1.2f);
             _audioSource.PlayOneShot(clip);
+        }
+
+        private void HandleGameOver()
+        {
+            _gameOver = true;
         }
         #endregion
         

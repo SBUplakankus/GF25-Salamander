@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Snake
   m_EditorClassIdentifier: 
   enemyHealth: 100
-  enemySpeed: 2
+  enemySpeed: 3
   enemyDamage: 25
   enemyAttackInterval: 4

@@ -30,6 +30,7 @@ namespace Player
             //PlayerAttributes.OnHungerLevelChanged += HandleHungerChange;
             //PlayerAttributes.OnMoistLevelChanged += HandleMoistureChange;
             EnemyController.OnPlayerDetected += HandleEnemyDetection;
+            EnemyController.OnEnemyRetreat += HandleEnemyRetreat;
         }
 
         private void OnDisable()
@@ -37,6 +38,7 @@ namespace Player
             //PlayerAttributes.OnHungerLevelChanged -= HandleHungerChange;
             //PlayerAttributes.OnMoistLevelChanged -= HandleMoistureChange;
             EnemyController.OnPlayerDetected -= HandleEnemyDetection;
+            EnemyController.OnEnemyRetreat -= HandleEnemyRetreat;
         }
 
         private void HandleEnemyDetection(bool escaped)
@@ -45,6 +47,11 @@ namespace Player
                 HideNotification(detected);
             else
                 ShowNotification(detected);
+        }
+
+        private void HandleEnemyRetreat()
+        {
+            HideNotification(detected);
         }
         
         private void HandleHungerChange(int amount)

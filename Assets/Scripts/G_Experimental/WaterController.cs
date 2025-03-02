@@ -17,6 +17,6 @@ public class WaterController : MonoBehaviour
     private IEnumerator WaterScale()
     {
         yield return new WaitForSeconds(delay);
-        Tween.Scale(transform, finalSize, duration);
+        Tween.Scale(transform, transform.localScale * finalSize, duration);
     }
 }

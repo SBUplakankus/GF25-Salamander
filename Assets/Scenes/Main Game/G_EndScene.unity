@@ -417,7 +417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Thanks For Playing
+  m_text: Thanks For Playing!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3a31f34645fa5514ba51c8289b815628, type: 2}
   m_sharedMaterial: {fileID: 7830023400505428901, guid: 3a31f34645fa5514ba51c8289b815628, type: 2}

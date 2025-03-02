@@ -53,9 +53,9 @@ namespace UI
             ShowPlayerAbilitiesPanel();
             ShowPlayerPanel();
             gameUi.alpha = 0;
-            fadeToBlack.alpha = 0;
-            Tween.Alpha(gameUi, 1, 1.5f);
-            Tween.Alpha(fadeToBlack, 0, 1.5f);
+            fadeToBlack.alpha = 1;
+            Tween.Alpha(gameUi, 1, 2.5f);
+            Tween.Alpha(fadeToBlack, 0, 2.5f);
         }
 
         private void OnEnable()
@@ -86,7 +86,7 @@ namespace UI
         
         #region Base Functions
 
-        private void HidePanel(int xy, RectTransform panel, int amount)
+        private static void HidePanel(int xy, RectTransform panel, int amount)
         {
             var pos = panel.anchoredPosition;
             
@@ -102,7 +102,7 @@ namespace UI
             panel.anchoredPosition = pos;
         }
         
-        private void ShowPanel(RectTransform panel, bool useTimeScale)
+        private static void ShowPanel(RectTransform panel, bool useTimeScale)
         {
             if (useTimeScale)
             {

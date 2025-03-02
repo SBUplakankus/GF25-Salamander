@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Lil Snake
   m_EditorClassIdentifier: 
   enemyHealth: 60
-  enemySpeed: 3
+  enemySpeed: 4
   enemyDamage: 15
   enemyAttackInterval: 4

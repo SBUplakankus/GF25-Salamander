@@ -3,6 +3,7 @@ using System.Collections;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -19,6 +20,9 @@ namespace UI
         [Header("Canvas Groups")] 
         [SerializeField] private CanvasGroup menu;
         [SerializeField] private CanvasGroup black;
+        
+        [Header("Buttons")]
+        [SerializeField] private Button[] buttons;
 
         [Header("Animation Settings")] 
         private const float AnimationDuration = 0.6f;
@@ -41,12 +45,14 @@ namespace UI
         {
             menu.alpha = 0;
             black.alpha = 1;
-            Tween.Alpha(menu, 1, 1.5f);
+            menu.blocksRaycasts = false;
+            Tween.Alpha(menu, 1, 1.5f).OnComplete(() => menu.blocksRaycasts = true);
             Tween.Alpha(black, 0, 1.5f);
         }
 
         private void FadeOut()
         {
+            menu.blocksRaycasts = false;
             Tween.Alpha(menu, 0, 3f);
             Tween.Alpha(black, 1, 3f).OnComplete(() => SceneManager.LoadScene(1));
         }
@@ -77,6 +83,14 @@ namespace UI
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        private void DisableButtons()
+        {
+            foreach (var but in buttons)
+            {
+                but.enabled = false;
+            }
         }
 
         private IEnumerator DisplayButtonsCoroutine()

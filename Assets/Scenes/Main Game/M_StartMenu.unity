@@ -735,6 +735,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8067050563327843843, guid: 28adfdc3591b61b41ae015619c90c2d8, type: 3}
+      propertyPath: buttonSfx
+      value: 
+      objectReference: {fileID: 8300000, guid: 2ffe9a5874ebf914e9076f158623acb1, type: 3}
     - target: {fileID: 8531415104286905156, guid: 28adfdc3591b61b41ae015619c90c2d8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -2655,6 +2659,10 @@ MonoBehaviour:
   creditsDisplayPanel: {fileID: 1655505967}
   menu: {fileID: 814291935}
   black: {fileID: 1534987177}
+  buttons:
+  - {fileID: 361376530}
+  - {fileID: 607484097}
+  - {fileID: 1096649778}
 --- !u!1 &1390227733
 GameObject:
   m_ObjectHideFlags: 0
