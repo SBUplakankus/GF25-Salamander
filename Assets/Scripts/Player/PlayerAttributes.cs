@@ -1,3 +1,27 @@
+// ============================================================================================
+// CLASS: PlayerAttributes
+// ============================================================================================
+// Description:
+//   Controls all the players key attributes in the game such as health, hunger and moisture
+//
+// Methods:
+//   - DecreaseMoistLevel: Decreases the moisture level of a player
+//   - IncreaseMoistLevel: Increases the moisture level of a player
+//   - DecreaseHealthLevel: Decreases the health level of a player
+//   - IncreaseHealthLevel: Increases the health level of a player
+//   - DecreaseHungerLevel: Decreases the hunger level of a player
+//   - IncreaseHungerLevel: Increases the hunger level of a player
+//   - SetInitialLimits: Sets the maximum values of the attributes
+//   - PlaySfx: Plays an audio clip in game
+//   - HandleGameOver: Handles the end of the game
+//
+// Related Classes:
+//   - DamageObject: Decreases the players health when touched
+//   - FoodObject: Increases the players hunger level when touched
+//   - EnemyController: Reduces the players health when touched
+//   - GameManager: Pauses the players attributes on game end
+// ============================================================================================
+
 using System;
 using System.Collections;
 using AI;

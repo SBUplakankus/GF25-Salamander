@@ -1,3 +1,19 @@
+// ============================================================================================
+// CLASS: AudioController
+// ============================================================================================
+// Description:
+//   Controls the global audio sources in the game
+//
+// Methods:
+//   - HandleTimerExpiration: Handles the audio played at the end of the game
+//   - HandleButtonEnter: Handles the button sfx for when the mouse enters a button
+//   - HandleButtonClick: Handles the button sfx for when the mouse clicks a button
+//
+// Related Classes:
+//   - GameManager: Listens in to when the timer expires
+//   - ButtonAudio: Listens in on button events
+// ============================================================================================
+
 using System;
 using Systems;
 using UnityEngine;

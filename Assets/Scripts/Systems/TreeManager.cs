@@ -1,3 +1,10 @@
+// ============================================================================================
+// CLASS: TreeManager
+// ============================================================================================
+// Description:
+//   Triggers the trees falling around the map as the game progresses
+// ============================================================================================
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;

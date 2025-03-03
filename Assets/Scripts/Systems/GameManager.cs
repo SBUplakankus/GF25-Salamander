@@ -1,3 +1,10 @@
+// ============================================================================================
+// CLASS: GameManager
+// ============================================================================================
+// Description:
+//   Tracks the current time of the game and invokes an event when the limit has been reached
+// ============================================================================================
+
 using System;
 using System.Collections;
 using UnityEngine;

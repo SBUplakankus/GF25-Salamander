@@ -1,3 +1,19 @@
+// ============================================================================================
+// CLASS: AttributeSliderController
+// ============================================================================================
+// Description:
+//   Controls the three primary attribute radial sliders in the top left of the screen
+//
+// Methods:
+//   - HandleInitSliderValues: Sets the initial slider values at the start of the game
+//   - HandleHealthUpdate: Updates the health sliders value
+//   - HandleHungerUpdate: Updates the hunger sliders value
+//   - HandleMoistUpdate: Updates the moist sliders value
+//
+// Related Classes:
+//   - PlayerAttributes: Listens in on attribute value change events
+// ============================================================================================
+
 using System;
 using Player;
 using PrimeTween;

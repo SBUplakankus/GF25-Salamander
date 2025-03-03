@@ -1,3 +1,16 @@
+// ============================================================================================
+// CLASS: PlayerIconStates
+// ============================================================================================
+// Description:
+//   Swaps the player icon in the top left corner of the screen based on the players health
+//
+// Methods:
+//   - HandleHealthChange: When players health changes, checks to see which icon is valid
+//
+// Related Classes:
+//   - PlayerAttributes: Listens in to when the players health changes
+// ============================================================================================
+
 using System;
 using UnityEngine;
 using UnityEngine.UI;

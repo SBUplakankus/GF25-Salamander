@@ -1,3 +1,17 @@
+// ============================================================================================
+// CLASS: AbilitySliders
+// ============================================================================================
+// Description:
+//   Updates the ability icons in the lower left of the screen on each usage
+//
+// Methods:
+//   - HandleDashCooldown: When Dash has been used, reset the slider accurate to the cooldown time
+//   - HandleSpitCooldown: When Spit has been used, reset the slider accurate to the cooldown time
+//
+// Related Classes:
+//   - PlayerController: Listens in to the Player Spit and Dash events to know when to reset
+// ============================================================================================
+
 using System;
 using PrimeTween;
 using UnityEngine;

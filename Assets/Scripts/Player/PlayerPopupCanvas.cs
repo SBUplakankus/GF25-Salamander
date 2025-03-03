@@ -1,3 +1,18 @@
+// ============================================================================================
+// CLASS: PlayerPopUpCanvas
+// ============================================================================================
+// Description:
+//   Displays in game notifications on a world canvas above the player
+//
+// Methods:
+//   - HandleEnemyDetection: Based on whether the player has been seen or escape, runs the valid notification script
+//   - HideNotification: Hides the specified notification icon
+//   - ShowNotification: Shows the specified notification icon
+//
+// Related Classes:
+//   - EnemyController: Listens in to the enemies to see when they have spotted the player or let them escape
+// ============================================================================================
+
 using System;
 using AI;
 using PrimeTween;

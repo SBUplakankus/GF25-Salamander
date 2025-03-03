@@ -1,3 +1,16 @@
+// ============================================================================================
+// CLASS: StartMenyController
+// ============================================================================================
+// Description:
+//   Controls the UI of the games start menu
+//
+// Methods:
+//   - ShowPanel: Displays the specified panel
+//   - FadeIn: Fades In and enables the Start Menu Elements using Canvas Groups
+//   - FadeOut: Fades Out and disables the Start Menu Elements using Canvas Groups
+//   - HandleCreditsPanel: Displays or Hides the Credits Panel based on its current status
+// ============================================================================================
+
 using System;
 using System.Collections;
 using PrimeTween;

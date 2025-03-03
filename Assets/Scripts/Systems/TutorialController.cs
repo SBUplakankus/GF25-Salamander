@@ -1,3 +1,19 @@
+// ============================================================================================
+// CLASS: TutorialController
+// ============================================================================================
+// Description:
+//   Controls the tutorial at the start of the game
+//
+// Methods:
+//   - ShowNextTutorial: Checks the current index then either displays the next tutorial in the list or completes it
+//   - TutorialTaskCompleted: When the correct input has been pressed, invokes an event to let the display know
+//   - TutorialCompleted: Handles the completion of the tutorial
+//   - SkipTutorial: Skips the remainder of the tutorial
+//
+// Related Classes:
+//   - TutorialDisplay: The UI Controller for the tutorial pop ups
+// ============================================================================================
+
 using System;
 using System.Collections.Generic;
 using Scriptable_Objects;

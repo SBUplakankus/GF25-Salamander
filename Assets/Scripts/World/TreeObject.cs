@@ -1,3 +1,17 @@
+// ============================================================================================
+// CLASS: TreeObject
+// ============================================================================================
+// Description:
+//   Controls the trees that fall in various places around the map
+//
+// Methods:
+//   - SetTreeToFall: Sets the tree to fall over at the first available oppurtunity
+//   - CutDownTree: Plays the tree chop down animation and audio
+//
+// Related Classes:
+//   - TreeManager: Controls when each Tree Object gets set to fall
+// ============================================================================================
+
 using System;
 using PrimeTween;
 using UnityEngine;

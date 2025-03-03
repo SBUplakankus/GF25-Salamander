@@ -1,3 +1,16 @@
+// ============================================================================================
+// CLASS: PlayerCameraShake
+// ============================================================================================
+// Description:
+//   Shakes the player camera at various stages of the game
+//
+// Methods:
+//   - HandleDamageTaken: Triggers the shake event when damage is taken by the player
+//
+// Related Classes:
+//   - PlayerAttributes: Listens in on the damage taken event in PlayerAttributes
+// ============================================================================================
+
 using PrimeTween;
 using UnityEngine;
 

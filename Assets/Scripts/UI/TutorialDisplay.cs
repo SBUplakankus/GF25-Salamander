@@ -1,3 +1,17 @@
+// ============================================================================================
+// CLASS: TutorialDisplay
+// ============================================================================================
+// Description:
+//   Handles the UI Elements of the Intro Tutorial. It is a bit scuffed, but it works 
+//
+// Methods:
+//   - DisplayTutorialInfo: Sets the Header and Description based of the Tutorial Scriptable Object
+//   - SetTextColour: Sets the colour of the text to green on task completion
+//
+// Related Classes:
+//   - TutorialController: Listens in on the tutorial controllers events so it knows what to display
+// ============================================================================================
+
 using System;
 using System.Collections;
 using PrimeTween;
