@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private const int SpitCooldown = 1;
 
     public Transform playerOrientation;
+
+    private const float RotationSmooth = 10;
     //inputs
     private float _horizontalInput;
     private float _verticalInput;
@@ -113,7 +115,8 @@ public class PlayerController : MonoBehaviour
         _rb.linearVelocity = velocity;
         
         //rotating player based of camera view
-        transform.rotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        Quaternion targetRotate = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotate, RotationSmooth * Time.deltaTime);
     }
     
     private void MyInput()

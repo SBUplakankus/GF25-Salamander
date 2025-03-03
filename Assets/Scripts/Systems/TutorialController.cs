@@ -40,10 +40,12 @@ namespace Systems
         {
             TutorialDisplay.OnTutorialDisplayEnd -= ShowNextTutorial;
         }
-
+        
         private void Update()
         {
             if (!_tutorialActive) return;
+            
+            // Checks for user input at each stage of the tutorial then progresses 
             
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -85,7 +87,7 @@ namespace Systems
                     
             }
         }
-
+        
         private void ShowNextTutorial()
         {
             if (_tutorialIndex >= tutorials.Count)
@@ -98,7 +100,7 @@ namespace Systems
                 _tutorialReady = true;
             }
         }
-
+        
         private void TutorialTaskCompleted()
         {
             OnTutorialTaskCompleted?.Invoke();
