@@ -85,7 +85,13 @@ namespace UI
         }
         
         #region Base Functions
-
+        
+        /// <summary>
+        /// Hide a Panel based on the axis it needs to move along and the amount it needs to move by
+        /// </summary>
+        /// <param name="xy">0 = X, 1 = Y</param>
+        /// <param name="panel">Panel to Move</param>
+        /// <param name="amount">Amount to move the specified anchored position by</param>
         private static void HidePanel(int xy, RectTransform panel, int amount)
         {
             var pos = panel.anchoredPosition;
@@ -102,6 +108,11 @@ namespace UI
             panel.anchoredPosition = pos;
         }
         
+        /// <summary>
+        /// Show the panel with or without using the timescale
+        /// </summary>
+        /// <param name="panel">Panel to move</param>
+        /// <param name="useTimeScale">True = Use, False = Don't</param>
         private static void ShowPanel(RectTransform panel, bool useTimeScale)
         {
             if (useTimeScale)
@@ -255,6 +266,9 @@ namespace UI
             tutorialGroup.alpha = show ? 1 : 0;
         }
         
+        #endregion
+
+        #region Coroutines
         private IEnumerator DisplaySkipCoroutine()
         {
             ShowTutorialSkipPanel();

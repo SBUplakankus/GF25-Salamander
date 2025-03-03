@@ -92,7 +92,10 @@ namespace AI
             var playerDistance = GetRemainingDistance(playerPosition);
             var targetDistance = GetRemainingDistance(_currentTarget);
             
-            // The enemy runs off of a state machine
+            // The enemy runs off of a state machine that dictates their actions
+            // Roaming: Patrols between points in the target list
+            // Attacking: Moves towards the player, flinging itself at them when in range
+            // Retreating: Runs away to the retreat point where it disappears on arrival
             switch (_enemyState)
             {
                 case EnemyState.Roaming:
@@ -165,6 +168,9 @@ namespace AI
             _inToxicWaste = false;
         }
         
+        /// <summary>
+        /// Initialize all the enemies starter values
+        /// </summary>
         private void InitEnemyStats()
         {
             _enemyState = EnemyState.Roaming;
@@ -198,12 +204,21 @@ namespace AI
             var rng = Random.Range(0, patrolPositions.Count);
             return patrolPositions[rng];
         }
-
+        
+        
         private float GetRemainingDistance(Transform target)
         {
             return Vector3.Distance(transform.position, target.position);
         }
         
+        /// <summary>
+        /// Disables the nav mesh and rotates towards the player
+        /// Flings itself at the player based on its leap force
+        /// Waits for a time before re-enabling
+        /// Activates the nav mesh again but is slowed for a time
+        /// Returns to normal after this
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator AttackPlayerCoroutine()
         {
             _navMeshAgent.enabled = false;

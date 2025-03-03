@@ -81,7 +81,11 @@ namespace UI
         {
             Application.Quit();
         }
-
+        
+        /// <summary>
+        /// Animation for the start of the game
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator DisplayButtonsCoroutine()
         {
             yield return new WaitForSeconds(ButtonInterval);

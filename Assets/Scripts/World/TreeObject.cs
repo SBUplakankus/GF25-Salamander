@@ -44,7 +44,10 @@ namespace World
             if (!other.gameObject.CompareTag("Player")) return;
             _playerInside = false;
         }
-
+        
+        /// <summary>
+        /// Setting the tree to fall means it will trigger the fall animation at the first oppurtunity
+        /// </summary>
         public void SetTreeToFall()
         {
             _readyToBeCut = true;

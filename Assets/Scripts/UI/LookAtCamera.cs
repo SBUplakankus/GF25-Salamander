@@ -5,7 +5,6 @@ namespace UI
 {
     public class LookAtCamera : MonoBehaviour
     {
-        // GPT Code
         [SerializeField] private Transform cameraTransform;
 
         private void LateUpdate()

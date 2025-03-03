@@ -12,11 +12,9 @@ namespace World
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                OnPlayerDamage?.Invoke(damageAmount);
-                gameObject.SetActive(false);
-            }
+            if (!other.gameObject.CompareTag("Player")) return;
+            OnPlayerDamage?.Invoke(damageAmount);
+            gameObject.SetActive(false);
         }
     }
 }

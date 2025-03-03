@@ -21,8 +21,6 @@ namespace AI
 
         private void Update()
         {
-            
-            
             var remainingDistance = Vector3.Distance(transform.position, _currentTarget.position);
             
             if (remainingDistance <= 1)

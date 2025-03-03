@@ -205,14 +205,13 @@ namespace Player
             OnHungerLevelChanged?.Invoke(hungerLevel);
         }
         
-        // Initialise Attributes
         private void SetInitialLimits()
         {
             _maxMoist = moistLevel;
             _maxHunger = hungerLevel;
             _maxHealth = healthLevel;
         }
-
+        
         private void PlaySfx(AudioClip clip, float volume)
         {
             _audioSource.volume = volume;
@@ -227,6 +226,11 @@ namespace Player
         #endregion
         
         #region Coroutines
+        /// <summary>
+        /// Increases or Decrease the players moist level dependent on them being in water or not
+        /// </summary>
+        /// <param name="inWater">Is the player in Water</param>
+        /// <returns></returns>
         private IEnumerator MoistCoroutine(bool inWater)
         {
             var waitTime = 0;

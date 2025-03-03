@@ -12,11 +12,9 @@ namespace World
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                OnFoodPickup?.Invoke(foodAmount);
-                gameObject.SetActive(false);
-            }
+            if (!other.gameObject.CompareTag("Player")) return;
+            OnFoodPickup?.Invoke(foodAmount);
+            gameObject.SetActive(false);
         }
     }
 }
