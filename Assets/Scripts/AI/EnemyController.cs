@@ -1,3 +1,26 @@
+// ============================================================================================
+// CLASS: EnemyController
+// ============================================================================================
+// Description:
+//   Controllers the Snake AI who attack the player throughout the game
+//
+// Methods:
+//   - InitEnemyStats: Initialise all the enemies variables based off of the assigned Scriptable Object
+//   - UpdatePatrolTarget: When the enemy reaches it's patrol destination, update its target to a new position
+//   - GetRandomPosition: Return a random position from the list of patrol transforms
+//   - GetRemainingDistance: Returns a float of the distance from the enemy to the passed through transform.
+//                              Used to find distance from player and patrol target
+//   - AttackCooldownCoroutine: Resets the enemies attack after a specified time
+//   - AttackPlayerCoroutine: Disables the NavMesh temporarily to fling the enemy towards the player before re-enabling
+//   - TakeDamage: Called to damage the enemy by a specified amount
+//   - ShowHealthBar: Displays the health bar above the Enemy in game
+//   - HideHealthBar: Hides the health bar above the Enemy in game
+//   - HandleGameOver: Disables the enemy on game over
+//
+// Related Classes:
+//   - GameManager: Disable the enemy on timer expiration
+// ============================================================================================
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

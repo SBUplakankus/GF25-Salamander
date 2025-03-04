@@ -3,9 +3,16 @@
 // ============================================================================================
 // Description:
 //   Handles the display and animations of the UI in the Main Game
+//
+// Methods:
+//   - HidePanel: Hide a Panel based on the axis it needs to move along and the amount it needs to move by
+//   - ShowPanel: Show the specified panel with or without using timescale on the animation
+//   - HandlePauseDisplay: Handles whether to show or hide the pause menu on call, running all the needed functions
+//   - HandleTimerExpiration: Handles the end of game transition
+//   - HandleTutorialOpacity: Handles the display of the tutorial, so it doesn't overlap with the pause menu while running
+//
 // ============================================================================================
 
-using System;
 using System.Collections;
 using Player;
 using PrimeTween;
@@ -198,6 +205,7 @@ namespace UI
 
         private void ShowGameOverPanel()
         {
+            Cursor.visible = true;
             ShowPanel(gameOverPanel, false);
             tutorialPanel.gameObject.SetActive(false);
             tutorialSkipPanel.gameObject.SetActive(false);

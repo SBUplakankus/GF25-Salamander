@@ -1,3 +1,16 @@
+// ============================================================================================
+// CLASS: Firefly
+// ============================================================================================
+// Description:
+//   Controls the fireflies that fly around the level in game
+//
+// Methods:
+//   - PickNextPosition: Chooses a new point for the firefly to move towards from the list of positions
+//   - MoveTowardsNextPosition: Moves the firefly to the current target position
+//   - LookTowardsNextPosition: Rotates the firefly to face the current target position
+//
+// ============================================================================================
+
 using System;
 using System.Collections.Generic;
 using PrimeTween;
