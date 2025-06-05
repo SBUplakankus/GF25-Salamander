@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: 4bb46fc48137a1e45a02c238cb0c610c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - musicPlayer: {instanceID: 0}
+  - ambientPlayer: {instanceID: 0}
+  - sfxPlayer: {instanceID: 0}
+  - caughtSfx: {fileID: 8300000, guid: f871e9c4d92b5c746bf1f8f63ac167d0, type: 3}
+  - buttonSfx: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
