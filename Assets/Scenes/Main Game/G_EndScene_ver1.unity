@@ -1189,6 +1189,7 @@ MonoBehaviour:
   lights: {fileID: 1200033443}
   salamander: {fileID: 576405939}
   text: {fileID: 57320245}
+  salamanderImage: {fileID: 1973747671}
 --- !u!1001 &408017697
 PrefabInstance:
   m_ObjectHideFlags: 0
