@@ -19,7 +19,7 @@ public class CameraPanning : MonoBehaviour
     [SerializeField] private GameObject lights;
     [SerializeField] private GameObject salamander;
     [SerializeField] private CanvasGroup text;
-    [SerializeField] private GameObject salamanderImage;  //for controling the visibility of the salamander's icon on the terarium's tag
+    //[SerializeField] private GameObject salamanderImage;  //for controling the visibility of the salamander's icon on the terarium's tag
     
     private Animator _animator;
     private AudioSource _audioSource;
@@ -57,7 +57,7 @@ public class CameraPanning : MonoBehaviour
 
     private void EndScene()
     {
-        salamanderImage.SetActive(false);
+        //salamanderImage.SetActive(false);
         lights.SetActive(false);
         StartCoroutine(EndingCoroutine());
     }
