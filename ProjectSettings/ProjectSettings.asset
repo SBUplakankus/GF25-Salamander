@@ -547,7 +547,7 @@ PlayerSettings:
   m_BuildTargetGroupLightmapEncodingQuality:
   - serializedVersion: 2
     m_BuildTarget: Standalone
-    m_EncodingQuality: 1
+    m_EncodingQuality: 2
   - serializedVersion: 2
     m_BuildTarget: Android
     m_EncodingQuality: 2
