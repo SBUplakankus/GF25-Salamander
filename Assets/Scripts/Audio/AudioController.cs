@@ -49,7 +49,7 @@ namespace Audio
         {
             ambientPlayer.volume = 0.3f;
             sfxPlayer.pitch = 1f;
-            sfxPlayer.volume = 1.4f;
+            sfxPlayer.volume = 3.4f;
             sfxPlayer.PlayOneShot(caughtSfx);
         }
 

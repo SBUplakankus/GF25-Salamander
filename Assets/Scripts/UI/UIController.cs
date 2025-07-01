@@ -50,7 +50,7 @@ namespace UI
         private const int ControlsHideAmountX = 1100;
         private const int PlayerHideAmountX = -900;
         private const int GameOverHideAmountY = -1100;
-        private const int TutorialSkipHideX = -450;
+        private const int TutorialSkipHideY = 500; //private const int TutorialSkipHideX = -450; (for original version of the game)
         private const int AbilitiesHideX = 600;
         private const float AnimationDuration = 0.5f;
         private const Ease AnimationEase = Ease.OutCubic;
@@ -93,7 +93,7 @@ namespace UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape)||Input.GetKeyDown(KeyCode.Space))
             {
                 HandlePauseMenuDisplay();
             }
@@ -222,7 +222,8 @@ namespace UI
 
         private void HideTutorialSkipPanel()
         {
-            Tween.UIAnchoredPositionX(tutorialSkipPanel, TutorialSkipHideX, AnimationDuration, AnimationEase);
+            //Tween.UIAnchoredPositionX(tutorialSkipPanel, TutorialSkipHideX, AnimationDuration, AnimationEase); (for original version of the game)
+            Tween.UIAnchoredPositionY(tutorialSkipPanel, TutorialSkipHideY, AnimationDuration, AnimationEase);
         }
 
         public void SwapGameOverDisplay()
