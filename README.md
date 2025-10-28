@@ -102,4 +102,4 @@ This project uses third-party assets and sounds credited in the official documen
 
 ## 🐾 Play the Game
 
-🔗 [Play on Itch.io](https://yourgamepage.itch.io/) *(add your actual link!)*  
+🔗 [Play on Itch.io](https://massivemeltmedia.itch.io/salamander)
